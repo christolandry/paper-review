@@ -4558,3 +4558,14 @@ input, select, textarea {
 				}
 
 		}
+
+/* ----------------------------------------- */
+.right-small-fade{
+	text-align: right;
+}
+
+@media screen and (max-width: 736px) {
+	.right-small-fade{
+		display: none;
+	}
+}
