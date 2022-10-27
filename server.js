@@ -12,6 +12,7 @@ const mainRoutes = require("./routes/main");
 const userRoutes = require("./routes/user");
 const reviewerRoutes = require("./routes/reviewer");
 const authorRoutes = require("./routes/author");
+const path = require('path'); //added for Vercel
 
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
@@ -27,6 +28,8 @@ app.set("view engine", "ejs");
 
 //Static Folder
 app.use(express.static("public"));
+app.set("views", path.join(__dirname, "views")) //added for Vercel
+app.set("public", path.join(__dirname, "public")) //added for Vercel
 
 //Body Parsing
 app.use(express.urlencoded({ extended: true }));
