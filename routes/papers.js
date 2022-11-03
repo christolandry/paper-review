@@ -15,6 +15,9 @@ router.post("/submit", upload.single("file"), papersController.createPaper);
 //Page for user to submit a paper
 router.get("/submit", papersController.getSubmit);
 
+//Page for user to see all papers they can review
+router.get("/", papersController.getPapers);
+
 //Enables user to like post. In controller, uses POST model to update likes by 1
 // router.put("/likePost/:id", postsController.likePost);
 

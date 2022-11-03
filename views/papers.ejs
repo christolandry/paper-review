@@ -1,0 +1,62 @@
+<!-- Head -->
+	<%- include('partials/head') -%>
+
+<!-- Header -->
+	<%- include('partials/header') -%>
+
+<!-- Menu -->
+	<%- include('partials/nav') -%>
+
+<!-- Main -->
+	<article id="main">
+		<div class="wrapper">
+			<div class="inner">
+				
+				<!-- Banner -->
+					<div class="row gtr-200">
+						<div class="col-6 col-12-small">
+							<h2>Papers Available for Review</h2>
+						</div>
+						<div class="col-6 col-12-small">
+							<h2 class="right-small-fade">Branding</h2>
+						</div>
+					</div>
+
+					<hr class="major" />
+					
+				<!-- Table of Available Documents to Review -->	
+					<div class="table-wrapper">
+						<table>
+							<thead>
+								<tr>
+									<th>Manuscript Number</th>
+									<th>Title</th>
+									<th>Type</th>
+									<th>Document</th>
+									<th>Date Submitted</th>
+									<th>Review Document</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for(var i=0; i<papers.length; i++) {%>
+									<tr>
+										<td><%= papers[i].manuscriptNumber %></td>
+										<td><%= papers[i].title %></td>
+										<td><%= papers[i].type %></td>
+										<td><a href="<%= papers[i].document %>">Document</a></td>
+										<td><%= papers[i].createdAt.toLocaleDateString('en-us') %></td>
+										<td>Review</td>
+									</tr>
+									<% } %>
+							</tbody>
+						</table>
+					</div>
+			</div>
+		</div>
+	</article>
+
+<!-- Footer -->
+	<%- include('partials/footer') -%>
+
+<!-- Scripts & Close -->
+	<%- include('partials/scripts') -%>

@@ -1,142 +1,120 @@
-<!DOCTYPE HTML>
-<!--
-	Tactile by Pixelarity
-	pixelarity.com | hello@pixelarity.com
-	License: pixelarity.com/license
--->
-<html>
-	<head>
-		<title>Paper Review</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
-		<link rel="stylesheet" href="/css/main.css" />
-	</head>
-	<body class="is-preload">
+<!-- Head -->
+<%- include('partials/head') -%>
 
-		<!-- Header -->
-			<%- include('partials/pageHeader') -%>
+<!-- Header -->
+	<%- include('partials/header') -%>
 
-		<!-- Menu -->
-			<%- include('partials/nav') -%>
+<!-- Menu -->
+	<%- include('partials/nav') -%>
 
-		<!-- Main -->
-			<article id="main">
-				<!-- <header>
-					<h2 class="major special">As Reviewer</h2>
-					<p>Aliquam ut ex ut interdum donec imperdiet </p>
-				</header> -->
-				<div class="wrapper">
-					<div class="inner">
-						<!-- Elements -->
-							<h2 id="elements">As Reviewer</h2>
-							
-								<!-- <header>
-									<p>Information regarding the paper's you have reviewed</p>
-								</header> -->
-								<div class="row gtr-200">
-									<div class="col-6 col-12-small">
-										<a href="#" class="button primary large">Review A Paper</a>
-									</div>
-									<div class="col-6 col-12-small">
-										<h2 class="right-small-fade">Branding</h2>
-									</div>
-								</div>
-								<hr class="major" />
-								<h4>In Progress</h4>
-								<!-- <p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p> -->
-								
-								<div class="table-wrapper">
-									<table>
-										<thead>
-											<tr>
-												<th>Manuscript Number</th>
-												<th>Date Accepted</th>
-												<th>Time Since Accepted</th>
-												<th>Review Template</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>1749-084</td>
-												<td>10/2/22</td>
-												<td>25 days</td>
-												<td>Link to review template</td>
-											</tr>
-											<tr>
-												<td>1748-544</td>
-												<td>10/17/22</td>
-												<td>10 days</td>
-												<td>Link to review template</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<h4>Lifetime Stats</h4>
-								<div class="table-wrapper">
-									<table>
-										<thead>
-											<tr>
-												<th>Invitations</th>
-												<th>Reviews Completed</th>
-												<th>Average time of review</th>
-												<th>Reviewer star rating</th>
-												<th>Lifetime earnings</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>84</td>
-												<td>5</td>
-												<td>4.8 days</td>
-												<td>4.2</td>
-												<td>$200</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<h4>Completed Reviews</h4>
-								<div class="table-wrapper">
-									<table>
-										<thead>
-											<tr>
-												<th>Manuscript Number</th>
-												<th>Article Type</th>
-												<th>Article Title</th>
-												<th>Review Accepted</th>
-												<th>Reviewed</th>
-												<th>Time of Review</th>
-												<th>Review</th>
-												<th>Author Rating</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>1749-084</td>
-												<td>Original</td>
-												<td>Testing Layouts in Mobile and Desktop</td>
-												<td>10/20/22</td>
-												<td>10/22/22</td>
-												<td>2 days</td>
-												<td>Review Link</td>
-												<td>4.3</td>
-											</tr>
-											<tr>
-												<td>1748-544</td>
-												<td>Original</td>
-												<td>Philosophical Musings on website deisgn</td>
-												<td>10/19/22</td>
-												<td>10/22/22</td>
-												<td>3 days</td>
-												<td>Review Link</td>
-												<td>4.5</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
+<!-- Main -->
+	<article id="main">
+		<div class="wrapper">
+			<div class="inner">
+
+				<!-- Elements -->
+					<h2 id="elements">As Reviewer</h2>
+					<div class="row gtr-200">
+						<div class="col-6 col-12-small">
+							<a href="/papers" class="button primary large">Review A Paper</a>
+						</div>
+						<div class="col-6 col-12-small">
+							<h2 class="right-small-fade">Branding</h2>
 						</div>
 					</div>
-			</article>
+					<hr class="major" />
+					<h4>In Progress</h4>
+					<div class="table-wrapper">
+						<table>
+							<thead>
+								<tr>
+									<th>Manuscript Number</th>
+									<th>Date Accepted</th>
+									<th>Time Since Accepted</th>
+									<th>Review Template</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1749-084</td>
+									<td>10/2/22</td>
+									<td>25 days</td>
+									<td>Link to review template</td>
+								</tr>
+								<tr>
+									<td>1748-544</td>
+									<td>10/17/22</td>
+									<td>10 days</td>
+									<td>Link to review template</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<h4>Lifetime Stats</h4>
+					<div class="table-wrapper">
+						<table>
+							<thead>
+								<tr>
+									<th>Invitations</th>
+									<th>Reviews Completed</th>
+									<th>Average time of review</th>
+									<th>Reviewer star rating</th>
+									<th>Lifetime earnings</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>84</td>
+									<td>5</td>
+									<td>4.8 days</td>
+									<td>4.2</td>
+									<td>$200</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<h4>Completed Reviews</h4>
+					<div class="table-wrapper">
+						<table>
+							<thead>
+								<tr>
+									<th>Manuscript Number</th>
+									<th>Article Type</th>
+									<th>Article Title</th>
+									<th>Review Accepted</th>
+									<th>Reviewed</th>
+									<th>Time of Review</th>
+									<th>Review</th>
+									<th>Author Rating</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1749-084</td>
+									<td>Original</td>
+									<td>Testing Layouts in Mobile and Desktop</td>
+									<td>10/20/22</td>
+									<td>10/22/22</td>
+									<td>2 days</td>
+									<td>Review Link</td>
+									<td>4.3</td>
+								</tr>
+								<tr>
+									<td>1748-544</td>
+									<td>Original</td>
+									<td>Philosophical Musings on website deisgn</td>
+									<td>10/19/22</td>
+									<td>10/22/22</td>
+									<td>3 days</td>
+									<td>Review Link</td>
+									<td>4.5</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+			</div>
+		</div>
+	</article>
 
 		<!-- Footer -->
 			<footer id="footer">
@@ -166,12 +144,8 @@
 				</div>
 			</footer>
 
-		<!-- Scripts -->
-			<script src="/js/jquery.min.js"></script>
-			<script src="/js/jquery.scrolly.min.js"></script>
-			<script src="/js/browser.min.js"></script>
-			<script src="/js/breakpoints.min.js"></script>
-			<script src="/js/util.js"></script>
-			<script src="/js/main.js"></script>
-	</body>
-</html>
+<!-- Footer -->
+	<%- include('partials/footer') -%>
+
+<!-- Scripts & Close -->
+	<%- include('partials/scripts') -%>

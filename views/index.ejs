@@ -1,153 +1,63 @@
-<!DOCTYPE HTML>
-<!--
-	Tactile by Pixelarity
-	pixelarity.com | hello@pixelarity.com
-	License: pixelarity.com/license
--->
-<html>
-	<head>
-		<title>Paper Review</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
-		<link rel="stylesheet" href="/css/main.css" />
-		<link rel="stylesheet" href="/css/style.css" />
-	</head>
-	<body class="is-preload">
+<!-- Head -->
+<%- include('partials/head') -%>
 
-		<!-- Header -->
-			<%- include('partials/pageHeader') -%>
+<!-- Header -->
+	<%- include('partials/header') -%>
 
-		<!-- Menu -->
-			<%- include('partials/nav') -%>
+<!-- Menu -->
+	<%- include('partials/nav') -%>
 
-		<!-- Banner -->
-			<section id="banner">
-				<div class="inner greyBox">
-					<h2 class="major special">Paper Review</h2>
-					<p>Sign up to get your paper reviewed, or become a reviewer</p>
-					<ul class="actions special stacked">
-						<li><a href="/signup" class="button primary large">Sign Up</a></li>
-						<li><a href="#two" class="button large scrolly">Learn more</a></li>
-					</ul>
-				</div>
-			</section>
+<!-- Banner -->
+	<section id="banner">
+		<div class="inner greyBox">
+			<h2 class="major special">Paper Review</h2>
+			<p>Sign up to get your paper reviewed, or become a reviewer</p>
+			<ul class="actions special stacked">
+				<li><a href="/signup" class="button primary large">Sign Up</a></li>
+				<li><a href="#two" class="button large scrolly">Learn more</a></li>
+			</ul>
+		</div>
+	</section>
 
-		<!-- One
-			<section id="one" class="wrapper alt style2">
-				<ul class="features">
-					<li>
-						<div class="content">
-							<span class="icon solid major fa-code"></span>
-							<h3 class="major">Sed Adipiscing</h3>
-							<p>Etiam finibus pharetra purus, imperdiet sagittis mauris hendrerit feugiat ante elementum amet arcu. Maecenas vulputate turpis faucibus lorem ipsum dolor sit amet.</p>
-							<ul class="actions">
-								<li><a href="#" class="button">Details</a></li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<div class="content">
-							<span class="icon major fa-gem"></span>
-							<h3 class="major">Lorem Faucibus</h3>
-							<p>Etiam finibus pharetra purus, imperdiet sagittis mauris hendrerit feugiat ante elementum amet arcu. Maecenas vulputate turpis faucibus lorem ipsum dolor sit amet.</p>
-							<ul class="actions">
-								<li><a href="#" class="button">Details</a></li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<div class="content">
-							<span class="icon major fa-copy"></span>
-							<h3 class="major">Elementum Amet</h3>
-							<p>Etiam finibus pharetra purus, imperdiet sagittis mauris hendrerit feugiat ante elementum amet arcu. Maecenas vulputate turpis faucibus lorem ipsum dolor sit amet.</p>
-							<ul class="actions">
-								<li><a href="#" class="button">Details</a></li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<div class="content">
-							<span class="icon major fa-paper-plane"></span>
-							<h3 class="major">Volutpat Purus</h3>
-							<p>Etiam finibus pharetra purus, imperdiet sagittis mauris hendrerit feugiat ante elementum amet arcu. Maecenas vulputate turpis faucibus.</p>
-							<ul class="actions">
-								<li><a href="#" class="button">Details</a></li>
-							</ul>
-						</div>
-					</li>
-				</ul>
-			</section> -->
+		
+<!-- Two -->
+	<section id="two" class="wrapper alt style2">
+		<section class="spotlight">
+			<div class="image"><img src="images/author.jpg" alt="" /></div>
+			<div class="content">
+				<h3 class="major">Authors</h3>
+				<p>As an author you can upload your paper and pay to get it reviewed by one of the reviewers on this site.  You'll be notified when a reviewer has choosen to review your paper and get feedback on it when they're done.</p>
+			</div>
+		</section>
+		<section class="spotlight">
+			<div class="image"><img src="images/reviewer.jpg" alt="" /></div>
+			<div class="content">
+				<h3 class="major">Reviewers</h3>
+				<p>As a verfied reviewer you'll review papers in your field of experise and get paid for doing so.  User selected email notifications come in when there's a paper that fits your criteria and you'll have the option to select which papers you want to get review and get paid for.</p>
+			</div>
+		</section>
+		<section class="spotlight">
+			<div class="image"><img src="images/payment.jpg" alt="" /></div>
+			<div class="content">
+				<h3 class="major">Payment</h3>
+				<p>Authors pay for reviews when they send papers out for reviews.  Reviewers receieve payment after they have successfully reviewed a paper.</p>
+			</div>
+		</section>
+	</section>
 
-		<!-- Two -->
-			<section id="two" class="wrapper alt style2">
-				<section class="spotlight">
-					<div class="image"><img src="images/author.jpg" alt="" /></div>
-					<div class="content">
-						<h3 class="major">Authors</h3>
-						<p>As an author you can upload your paper and pay to get it reviewed by one of the reviewers on this site.  You'll be notified when a reviewer has choosen to review your paper and get feedback on it when they're done.</p>
-					</div>
-				</section>
-				<section class="spotlight">
-					<div class="image"><img src="images/reviewer.jpg" alt="" /></div>
-					<div class="content">
-						<h3 class="major">Reviewers</h3>
-						<p>As a verfied reviewer you'll review papers in your field of experise and get paid for doing so.  User selected email notifications come in when there's a paper that fits your criteria and you'll have the option to select which papers you want to get review and get paid for.</p>
-					</div>
-				</section>
-				<section class="spotlight">
-					<div class="image"><img src="images/payment.jpg" alt="" /></div>
-					<div class="content">
-						<h3 class="major">Payment</h3>
-						<p>Authors pay for reviews when they send papers out for reviews.  Reviewers receieve payment after they have successfully reviewed a paper.</p>
-					</div>
-				</section>
-			</section>
+<!-- Three -->
+	<section id="three" class="wrapper style1 special">
+		<div class="inner narrow">
+			<h3 class="major special">Sed Lacus Bibendum</h3>
+			<p>Sagittis mauris hendrerit vitae feugiat etiam ante elementum vulputate faucibus convallis bibendum ligula.</p>
+			<ul class="actions special">
+				<li><a href="#" class="button primary large">Get started</a></li>
+			</ul>
+		</div>
+	</section>
 
-		<!-- Three -->
-			<section id="three" class="wrapper style1 special">
-				<div class="inner narrow">
-					<h3 class="major special">Sed Lacus Bibendum</h3>
-					<p>Sagittis mauris hendrerit vitae feugiat etiam ante elementum vulputate faucibus convallis bibendum ligula.</p>
-					<ul class="actions special">
-						<li><a href="#" class="button primary large">Get started</a></li>
-					</ul>
-				</div>
-			</section>
+<!-- Footer -->
+	<%- include('partials/footer') -%>
 
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<section class="about">
-						<h4 class="major">Magna Aliquam Feugiat</h4>
-						<p>Etiam finibus pharetra purus, imperdiet sagittis mauris hendrerit vitae. In feugiat ante elementum nulla arcu. Maecenas vulputate faucibus, convallis ligula ipsum dolor feugiat tempus adipiscing.</p>
-						<ul class="actions">
-							<li><a class="button">Learn more</a></li>
-						</ul>
-					</section>
-					<section class="contact-info">
-						<h4 class="major">Get in Touch</h4>
-						<ul class="contact">
-							<li class="icon solid fa-phone">(000) 000-0000</li>
-							<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
-							<li class="icon brands fa-twitter"><a href="#">@untitled-tld</a></li>
-							<li class="icon brands fa-facebook-f"><a href="#">facebook.com/untitled</a></li>
-						</ul>
-						<ul class="contact">
-							<li class="icon solid fa-home">Untitled Corp<br />1234 Fictional Road<br />Suite 5432<br />Nashville, TN 00000<br />USA</li>
-						</ul>
-					</section>
-				</div>
-				<div class="copyright">
-					<p>&copy; Untitled Corp. All rights reserved.</p>
-				</div>
-			</footer>
-
-		<!-- Scripts -->
-			<script src="/js/jquery.min.js"></script>
-			<script src="/js/jquery.scrolly.min.js"></script>
-			<script src="/js/browser.min.js"></script>
-			<script src="/js/breakpoints.min.js"></script>
-			<script src="/js/util.js"></script>
-			<script src="/js/main.js"></script>
-	</body>
-</html>
+<!-- Scripts & Close -->
+	<%- include('partials/scripts') -%>

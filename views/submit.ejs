@@ -1,133 +1,76 @@
-<!DOCTYPE HTML>
-<!--
-	Tactile by Pixelarity
-	pixelarity.com | hello@pixelarity.com
-	License: pixelarity.com/license
--->
-<html>
-	<head>
-		<title>Paper Review</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
-		<link rel="stylesheet" href="/css/main.css" />
-	</head>
-	<body class="is-preload">
+<!-- Head -->
+<%- include('partials/head') -%>
 
-		<!-- Header -->
-			<header id="header">
-				<h1><a href="index.html">Tactile <span>by Pixelarity</span></a></h1>
-				<a href="#">Log In</a>
-				<a href="#menu">Menu</a>
-			</header>
+<!-- Header -->
+	<%- include('partials/header') -%>
 
-		<!-- Menu -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="generic.html">Generic</a></li>
-					<li><a href="elements.html">Elements</a></li>
-				</ul>
-				<ul class="actions stacked">
-					<li><a href="#" class="button fit primary">Sign Up</a></li>
-					<li><a href="#" class="button fit">Log In</a></li>
-				</ul>
-			</nav>
+<!-- Menu -->
+	<%- include('partials/nav') -%>
 
-		<!-- Main -->
-			<article id="main">
-				<div class="wrapper">
-					<div class="inner">
-						<!-- Elements -->
-							<h2 id="elements">Submit a Paper</h2>
-								<form action="/papers/submit" enctype="multipart/form-data" method="POST">
-									<div class="row gtr-uniform">
-										<div class="col-6 col-12-xsmall">
-											<input type="text" name="title" id="title" value="" placeholder="Paper Title" />
-										</div>
-										<div class="col-6 col-12-xsmall">
-											<select name="type" id="type">
-												<option value="">- Paper Type -</option>
-												<option value="Original">Original</option>
-												<option value="Non-Original">Non-Original</option>
-											</select>
-										</div>
-										<!-- Break -->
-										<div class="col-12">
-											<select name="category" id="category">
-												<option value="">- Category -</option>
-												<option value="1">Manufacturing</option>
-												<option value="1">Shipping</option>
-												<option value="1">Administration</option>
-												<option value="1">Human Resources</option>
-											</select>
-										</div>
-										<!-- Break -->
-										<div class="col-12">
-											<input type="file" id="imageUpload" name="file">
-										</div>
-										<!-- Break -->
-										<div class="col-4 col-12-small">
-											<input type="radio" id="priority-low" name="priority" checked>
-											<label for="priority-low">Low Priority</label>
-										</div>
-										<div class="col-4 col-12-small">
-											<input type="radio" id="priority-normal" name="priority">
-											<label for="priority-normal">Normal Priority</label>
-										</div>
-										<div class="col-4 col-12-small">
-											<input type="radio" id="priority-high" name="priority">
-											<label for="priority-high">High Priority</label>
-										</div>
-										
-										<!-- Break -->
-										<div class="col-12">
-											<textarea name="message" id="message" placeholder="Enter your message" rows="6"></textarea>
-										</div>
-										<!-- Break -->
-										<div class="col-12">
-											<ul class="actions">
-												<li><input type="submit" value="Send Message" class="primary" /></li>
-												<li><input type="reset" value="Reset" /></li>
-											</ul>
-										</div>
-									</div>
-								</form>
-			</article>
+<!-- Main -->
+	<article id="main">
+		<div class="wrapper">
+			<div class="inner">
+				<!-- Elements -->
+					<h2 id="elements">Submit a Paper</h2>
+						<form action="/papers/submit" enctype="multipart/form-data" method="POST">
+							<div class="row gtr-uniform">
+								<div class="col-6 col-12-xsmall">
+									<input type="text" name="title" id="title" value="" placeholder="Paper Title" />
+								</div>
+								<div class="col-6 col-12-xsmall">
+									<select name="type" id="type">
+										<option value="">- Paper Type -</option>
+										<option value="Original">Original</option>
+										<option value="Non-Original">Non-Original</option>
+									</select>
+								</div>
+								<!-- Break -->
+								<div class="col-12">
+									<select name="category" id="category">
+										<option value="">- Category -</option>
+										<option value="1">Manufacturing</option>
+										<option value="1">Shipping</option>
+										<option value="1">Administration</option>
+										<option value="1">Human Resources</option>
+									</select>
+								</div>
+								<!-- Break -->
+								<div class="col-12">
+									<input type="file" id="imageUpload" name="file">
+								</div>
+								<!-- Break -->
+								<div class="col-4 col-12-small">
+									<input type="radio" id="priority-low" name="priority" checked>
+									<label for="priority-low">Low Priority</label>
+								</div>
+								<div class="col-4 col-12-small">
+									<input type="radio" id="priority-normal" name="priority">
+									<label for="priority-normal">Normal Priority</label>
+								</div>
+								<div class="col-4 col-12-small">
+									<input type="radio" id="priority-high" name="priority">
+									<label for="priority-high">High Priority</label>
+								</div>
+								
+								<!-- Break -->
+								<div class="col-12">
+									<textarea name="message" id="message" placeholder="Enter your message" rows="6"></textarea>
+								</div>
+								<!-- Break -->
+								<div class="col-12">
+									<ul class="actions">
+										<li><input type="submit" value="Send Message" class="primary" /></li>
+										<li><input type="reset" value="Reset" /></li>
+									</ul>
+								</div>
+							</div>
+						</form>
+	</article>
 
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<section class="about">
-						<h4 class="major">Magna Aliquam Feugiat</h4>
-						<p>Etiam finibus pharetra purus, imperdiet sagittis mauris hendrerit vitae. In feugiat ante elementum nulla arcu. Maecenas vulputate faucibus, convallis ligula ipsum dolor feugiat tempus adipiscing.</p>
-						<ul class="actions">
-							<li><a class="button">Learn more</a></li>
-						</ul>
-					</section>
-					<section class="contact-info">
-						<h4 class="major">Get in Touch</h4>
-						<ul class="contact">
-							<li class="icon solid fa-phone">(000) 000-0000</li>
-							<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
-							<li class="icon brands fa-twitter"><a href="#">@untitled-tld</a></li>
-							<li class="icon brands fa-facebook-f"><a href="#">facebook.com/untitled</a></li>
-						</ul>
-						<ul class="contact">
-							<li class="icon solid fa-home">Untitled Corp<br />1234 Fictional Road<br />Suite 5432<br />Nashville, TN 00000<br />USA</li>
-						</ul>
-					</section>
-				</div>
-				<div class="copyright">
-					<p>&copy; Untitled Corp. All rights reserved.</p>
-				</div>
-			</footer>
+<!-- Footer -->
+	<%- include('partials/footer') -%>
 
-		<!-- Scripts -->
-			<script src="/js/jquery.min.js"></script>
-			<script src="/js/jquery.scrolly.min.js"></script>
-			<script src="/js/browser.min.js"></script>
-			<script src="/js/breakpoints.min.js"></script>
-			<script src="/js/util.js"></script>
-			<script src="/js/main.js"></script>
-	</body>
-</html>
+<!-- Scripts & Close -->
+	<%- include('partials/scripts') -%>
+	

@@ -31,9 +31,7 @@ module.exports = {
   createPaper: async (req, res) => {
     try {
       // Upload image to cloudinary
-      console.log("******************Check 1 ******************")
       const result = await cloudinary.uploader.upload(req.file.path);
-      console.log("******************Check 2 ******************")
       await PaperCounter.findOneAndUpdate(
               { title: "counter"},
               {
@@ -41,7 +39,6 @@ module.exports = {
               }
             );
       const counter = await PaperCounter.findOne({ title: "counter" });
-      console.log("******************Check 3 ******************")
       //media is stored on cloudainary - the above request responds with url to media and the media id that will be needed when deleting content 
       await Paper.create({
         manuscriptNumber: counter.current,
@@ -51,7 +48,6 @@ module.exports = {
         cloudinaryId: result.public_id,        
         author: req.user.id,
       });
-      console.log("******************Check 4 ******************")
       console.log("Paper has been added!");
       res.redirect("/user/author");
     } catch (err) {
@@ -60,7 +56,16 @@ module.exports = {
   },
   getSubmit: async (req, res) => {
     try {
-      res.render("submit.ejs", { user: req.user});
+      res.render("submit.ejs", { user: req.user, title: "- Submit a Paper" });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getPapers: async (req, res) => {
+    try {
+      const papers = await Paper.find();
+      console.log(papers)
+      res.render("papers.ejs", { user: req.user, papers: papers, title: "- Available Papers" });
     } catch (err) {
       console.log(err);
     }
