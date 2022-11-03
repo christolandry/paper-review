@@ -1,0 +1,18 @@
+<nav id="menu">
+    <ul class="links">
+        <% if(user) { %>
+            <li><a href="/user">Home</a></li>
+            <li><a href="/user/author">As Author</a></li>
+            <li><a href="/user/reviewer">As Reviewer</a></li>
+        <% } %>
+        <% if(!user) { %>
+            <li><a href="/">Home</a></li>
+            <li><a href="/#two">Learn More</a></li>
+        <% } %>
+    </ul>
+
+    <ul class="actions stacked">
+        <li><a href="<%= user ? '/logout' : '/signup' %>" class="button fit primary"><%= user ? 'Log Out' : 'Sign Up' %></a></li>
+        <% if(!user) { %><li><a href="/login" class="button fit">Log In</a></li><% } %>
+    </ul>
+</nav>

@@ -14,24 +14,10 @@
 	<body class="is-preload">
 
 		<!-- Header -->
-			<header id="header">
-				<h1><a href="index.html">Tactile <span>by Pixelarity</span></a></h1>
-				<a href="#">Log In</a>
-				<a href="#menu">Menu</a>
-			</header>
+			<%- include('partials/pageHeader') -%>
 
 		<!-- Menu -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="generic.html">Generic</a></li>
-					<li><a href="elements.html">Elements</a></li>
-				</ul>
-				<ul class="actions stacked">
-					<li><a href="#" class="button fit primary">Sign Up</a></li>
-					<li><a href="#" class="button fit">Log In</a></li>
-				</ul>
-			</nav>
+			<%- include('partials/nav') -%>
 
 		<!-- Main -->
 			<article id="main">
@@ -49,7 +35,7 @@
 								</header> -->
 								<div class="row gtr-200">
 									<div class="col-6 col-12-small">
-										<a href="#" class="button primary large">Review A Paper</a>
+										<a href="/papers/submit" class="button primary large">Submit A Paper</a>
 									</div>
 									<div class="col-6 col-12-small">
 										<h2 class="right-small-fade">Branding</h2>
@@ -65,13 +51,24 @@
 											<tr>
 												<th>Manuscript Number</th>
 												<th>Status</th>
+												<th>Document</th>
 												<th>Date Submitted</th>
 												<th>Review Accepted</th>
 												<th>Reviewer ID#</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
+											<% for(var i=0; i<papers.length; i++) {%>
+												<tr>
+													<td><%= papers[i].manuscriptNumber %></td>
+													<td><%= papers[i].status %></td>
+													<td><a href="<%= papers[i].document %>">Document</a></td>
+													<td><%= papers[i].createdAt.toLocaleDateString('en-us') %></td>
+													<td><%= papers[i].reviewAccepted ? papers[i].reviewAccepted.toLocaleDateString('en-us') : '' %></td>
+													<td><%= papers[i].reviewerID ? papers[i].reviewerID : '' %></td>
+												</tr>
+											  <% } %>
+											<!-- <tr>
 												<td>1749-084</td>
 												<td>Awaiting Reviewer</td>
 												<td>10/25/22</td>
@@ -84,7 +81,7 @@
 												<td>10/22/22</td>
 												<td>10/25/22</td>
 												<td>#1003</td>
-											</tr>
+											</tr> -->
 										</tbody>
 									</table>
 								</div>
@@ -99,8 +96,8 @@
 										</thead>
 										<tbody>
 											<tr>
-												<td>5</td>
-												<td>4</td>
+												<td><%= submitted %></td>
+												<td><%= reviews %></td>
 											</tr>
 										</tbody>
 									</table>

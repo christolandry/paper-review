@@ -15,24 +15,10 @@
 	<body class="is-preload">
 
 		<!-- Header -->
-			<header id="header">
-				<h1><a href="index.html">Paper Review <span>by Jonah Goldwater</span></a></h1>
-				<a href="/login">Log In</a>
-				<a href="#menu">Menu</a>
-			</header>
+			<%- include('partials/pageHeader') -%>
 
 		<!-- Menu -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="generic.html">Generic</a></li>
-					<li><a href="elements.html">Elements</a></li>
-				</ul>
-				<ul class="actions stacked">
-					<li><a href="/signup" class="button fit primary">Sign Up</a></li>
-					<li><a href="/login" class="button fit">Log In</a></li>
-				</ul>
-			</nav>
+			<%- include('partials/nav') -%>
 
 		<!-- Banner -->
 			<section id="banner">

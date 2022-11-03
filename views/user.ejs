@@ -10,24 +10,10 @@
 	<body class="is-preload">
 
 		<!-- Header -->
-			<header id="header">
-				<h1><a href="index.html">Tactile <span>by Pixelarity</span></a></h1>
-				<a href="#">Log In</a>
-				<a href="#menu">Menu</a>
-			</header>
- 
+		<%- include('partials/pageHeader') -%>
+
 		<!-- Menu -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="generic.html">Generic</a></li>
-					<li><a href="elements.html">Elements</a></li>
-				</ul>
-				<ul class="actions stacked">
-					<li><a href="#" class="button fit primary">Sign Up</a></li>
-					<li><a href="#" class="button fit">Log In</a></li>
-				</ul>
-			</nav>
+			<%- include('partials/nav') -%>
 
 		<!-- Main -->
 			<article id="main">
@@ -44,7 +30,7 @@
 									<!-- Text stuff -->
 										
 										<header>
-											<h2><a href="/author">As Author</a></h2>
+											<h2><a href="/user/author">As Author</a></h2>
 											<p>Information regarding your paper submissions</p>
 										</header>
 										<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
@@ -83,7 +69,7 @@
 								</div>
 								<div class="col-6 col-12-medium">
 									<header>
-										<h2><a href="/reviewer">As Reviewer</a></h2>
+										<h2><a href="/user/reviewer">As Reviewer</a></h2>
 										<p>Information regarding the paper's you have reviewed</p>
 									</header>
 									<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
