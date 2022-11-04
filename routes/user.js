@@ -13,4 +13,10 @@ router.get("/author", ensureAuth, userController.getAuthor);
 //user reviewer page
 router.get("/reviewer", ensureAuth, userController.getReviewer);
 
+//user settings page
+router.get("/settings", ensureAuth, userController.getSettings);
+
+//user settings update
+router.post("/settings", ensureAuth, userController.updateSettings);
+
 module.exports = router;

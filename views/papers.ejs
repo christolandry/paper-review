@@ -45,7 +45,8 @@
 										<td><%= papers[i].type %></td>
 										<td><a href="<%= papers[i].document %>">Document</a></td>
 										<td><%= papers[i].createdAt.toLocaleDateString('en-us') %></td>
-										<td>Review</td>
+										<td><a href="/papers/review/<%= papers[i].manuscriptNumber %>">Review</a>
+										</td>
 									</tr>
 									<% } %>
 							</tbody>

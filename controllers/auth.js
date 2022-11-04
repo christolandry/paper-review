@@ -1,6 +1,7 @@
 const passport = require("passport");
 const validator = require("validator");
 const User = require("../models/User");
+const ReviewerIDCounter = require("../models/ReviewerIDCounter");
 
 exports.getLogin = (req, res) => {
   if (req.user) {
@@ -61,7 +62,7 @@ exports.getSignup = (req, res) => {
   res.render("signup.ejs", {user: req.user, title: "- Create Account"});
 };
 
-exports.postSignup = (req, res, next) => {
+exports.postSignup = async (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: "Please enter a valid email address." });
@@ -80,10 +81,14 @@ exports.postSignup = (req, res, next) => {
     gmail_remove_dots: false,
   });
 
+  let counter = await ReviewerIDCounter.findOne({ title: "counter" });
+  console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+  console.log(counter)
   const user = new User({
     userName: req.body.userName,
     email: req.body.email,
     password: req.body.password,
+    reviewerID: counter.current + 1,
   });
 
   User.findOne(
@@ -98,10 +103,13 @@ exports.postSignup = (req, res, next) => {
         });
         return res.redirect("../signup");
       }
+      console.log("********** Check 0 ***********")
+      incrementReviewerIDCounter()
       user.save((err) => {
         if (err) {
           return next(err);
         }
+        console.log("********** Check 3 ***********")
         req.logIn(user, (err) => {
           if (err) {
             return next(err);
@@ -112,3 +120,14 @@ exports.postSignup = (req, res, next) => {
     }
   );
 };
+
+async function incrementReviewerIDCounter (){
+  console.log("********** Check 1 ***********")
+  await ReviewerIDCounter.findOneAndUpdate(
+    { title: "counter"},
+    {
+      $inc: { current : 1 },
+    }
+  );
+  console.log("********** Check 2 ***********")
+}

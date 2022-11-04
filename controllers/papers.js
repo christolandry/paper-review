@@ -64,8 +64,8 @@ module.exports = {
   getPapers: async (req, res) => {
     try {
       const papers = await Paper.find();
-      console.log(papers)
-      res.render("papers.ejs", { user: req.user, papers: papers, title: "- Available Papers" });
+      let filteredPapers = papers.filter(paper => req.user.subjects.includes(paper.type.toLowerCase()))
+      res.render("papers.ejs", { user: req.user, papers: filteredPapers, title: "- Available Papers" });
     } catch (err) {
       console.log(err);
     }

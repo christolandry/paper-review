@@ -1,0 +1,98 @@
+<!-- Head -->
+	<%- include('partials/head') -%>
+
+<!-- Header -->
+	<%- include('partials/header') -%>
+
+<!-- Menu -->
+	<%- include('partials/nav') -%>
+
+<!-- Main -->
+	<article id="main">
+		<div class="wrapper">
+			<div class="inner">
+				<!-- Banner -->
+					<div class="row gtr-200">
+						<div class="col-6 col-12-small">
+							<h2>User Settings</h2>
+						</div>
+						<div class="col-6 col-12-small">
+							<h2 class="right-small-fade">Branding</h2>
+						</div>
+					</div>
+					<hr class="major" />
+				<!-- Documents in Progress -->
+					<div class="box alt">
+						<form action="/user/settings" method="POST">
+							<div class="row gtr-uniform">
+								<div class="col-6 col-12-xsmall">
+									<label for="name">Name</label>
+									<input type="text" name="name" id="name" value="<%= user.userName %>"  />
+								</div>
+								<div class="col-6 col-12-xsmall">
+									<label for="email">Email</label>
+									<input type="email" name="email" id="email" value="<%= user.email %>" />
+								</div>
+								<!-- Break -->
+								<div class="col-6 col-12-xsmall">
+									<label for="university">College / University</label>
+									<input type="text" name="university" id="university" value="<%= user.university %>" />
+								</div>
+								<div class="col-6 col-12-xsmall">
+									<label for="title">Title</label>
+									<input type="text" name="title" id="title" value="<%= user.title %>" />
+								</div>
+								<!-- Break -->
+								<div class="col-6 col-12-xsmall">
+									<span>Reviewer ID: <%= user.reviewerID %></span>
+								</div>
+								<div class="col-6 col-12-xsmall">
+								</div>
+								<!-- Break -->
+								<div class="col-12">
+									<h5>Subjects to review papers</h5>
+								</div>
+								<!-- Break -->
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="philosopy" name="philosopy" <% if(user.subjects.includes("philosopy")) { %> checked <% } %>>
+									<label for="philosopy">Philosopy</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="economics" name="economics" <% if(user.subjects.includes("economics")) { %> checked <% } %>>
+									<label for="economics">Economics</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="original" name="original" <% if(user.subjects.includes("original")) { %> checked <% } %>>
+									<label for="original">Original</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="non-original" name="non-original" <% if(user.subjects.includes("non-original")) { %> checked <% } %>>
+									<label for="non-original">Non-Original</label>
+								</div>
+								<div class="col-12">
+									<select name="category" id="category">
+										<option value="">- Category -</option>
+										<option value="1">Manufacturing</option>
+										<option value="1">Shipping</option>
+										<option value="1">Administration</option>
+										<option value="1">Human Resources</option>
+									</select>
+								</div>
+								<!-- Break -->
+								<div class="col-12">
+									<ul class="actions">
+										<li><input type="submit" value="Update" class="primary" /></li>
+									</ul>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</article>
+
+<!-- Footer -->
+	<%- include('partials/footer') -%>
+
+<!-- Scripts & Close -->
+	<%- include('partials/scripts') -%>
