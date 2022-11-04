@@ -1,6 +1,15 @@
 const cloudinary = require("../middleware/cloudinary");
 const Paper = require("../models/Paper");
+const User = require("../models/User");
 const PaperCounter = require("../models/PaperCounter");
+const nodemailer = require('nodemailer');
+const client = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+      user: "paperreviewapp@gmail.com",
+      pass: "owfodzlbjvjrxlrm"
+  }
+});
 
 module.exports = {
   // getProfile: async (req, res) => { 
@@ -49,6 +58,37 @@ module.exports = {
         author: req.user.id,
       });
       console.log("Paper has been added!");
+      //get all email address that have the subject of the paper being added and send out an email to them.
+      
+      let users = await User.find()
+      console.log(users)
+      let filteredUsers = users.filter(i => {
+        console.log(i.subjects)
+        console.log(req.body.type)
+        return i.subjects.includes(req.body.type.toLowerCase()) && (i.email !== req.user.email)})
+      console.log(filteredUsers)
+
+      filteredUsers.forEach(user => {
+        client.sendMail(
+          {
+            from: "paperreviewapp@gmail.com",
+            to: user.email,
+            subject: "Paper Review - A new paper of your subject matter has been uploaded",
+            html: "Click this <a href='https://paper-review.vercel.app/papers'>link</a> to view all papers you can review",
+          }
+        )
+        console.log(`Email sent to: ${user.email}`)
+      })
+      
+      client.sendMail(
+        {
+          from: "paperreviewapp@gmail.com",
+          to: "christo.landry@gmail.com",
+          subject: "Testing",
+          html: "Click this <a href='https://paper-review.vercel.app/papers'>link</a> to view all papers you can review",
+        }
+      )
+
       res.redirect("/user/author");
     } catch (err) {
       console.log(err);
