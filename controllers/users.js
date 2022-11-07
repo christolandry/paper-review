@@ -5,9 +5,10 @@ module.exports = {
   getUser: async (req, res) => {
     try {
       //Grabbing just the papers of the logged-in user
-      const papers = await Paper.find({ author: req.user.id });
+      const papersSubmited = await Paper.find({ author: req.user.id });
+      const papersUnderReview = await Paper.find({ reviewerID: req.user.reviewerID })
       //Sending post data from mongodb and user data to ejs template
-      res.render("user.ejs", { papers: papers, user: req.user, title: "- Overview" });
+      res.render("user.ejs", { papersSubmited: papersSubmited, papersUnderReview: papersUnderReview, user: req.user, title: "- Overview" });
       
     } catch (err) {
       console.log(err);
@@ -17,16 +18,20 @@ module.exports = {
     try {
       const papers = await Paper.find({ author: req.user.id });
       const submitted = papers.length
-      const reviews = papers.filter(i => i.reviewerID).length
+      const papersReviewed = papers.filter(i => i.status === "Review Complete")
+      const reviews = papersReviewed.length
+      const papersInProgress = papers.filter(i => i.status !== "Review Complete")
       //Sending post data from mongodb and user data to ejs template
-      res.render("author.ejs", { papers: papers, user: req.user, submitted: submitted, reviews: reviews, title: "- As Author" });
+      res.render("author.ejs", { papersInProgress: papersInProgress, papersReviewed: papersReviewed, user: req.user, submitted: submitted, reviews: reviews, title: "- As Author" });
     } catch (err) {
       console.log(err);
     }
   },
   getReviewer: async (req, res) => {
     try {
-      res.render("reviewer.ejs", { user: req.user, title: "- As Reviewer"});
+      const papersUnderReview = await Paper.find({ reviewerID: req.user.reviewerID, status: "Under Review" })
+      const papersReviewed = await Paper.find({ reviewerID: req.user.reviewerID, status: "Review Complete" })
+      res.render("reviewer.ejs", { user: req.user, title: "- As Reviewer", papersUnderReview: papersUnderReview, papersReviewed: papersReviewed });
     } catch (err) {
       console.log(err);
     }

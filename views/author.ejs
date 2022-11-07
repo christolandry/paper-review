@@ -30,23 +30,25 @@
 								<tr>
 									<th>Manuscript Number</th>
 									<th>Status</th>
-									<th>Document</th>
+									<th>Title</th>
 									<th>Date Submitted</th>
 									<th>Review Accepted</th>
 									<th>Reviewer ID#</th>
 								</tr>
 							</thead>
 							<tbody>
-								<% for(var i=0; i<papers.length; i++) {%>
+								<% for(var i=0; i<papersInProgress.length; i++) {%>
 									<tr>
-										<td><%= papers[i].manuscriptNumber %></td>
-										<td><%= papers[i].status %></td>
-										<td><a href="<%= papers[i].document %>">Document</a></td>
-										<td><%= papers[i].createdAt.toLocaleDateString('en-us') %></td>
-										<td><%= papers[i].reviewAccepted ? papers[i].reviewAccepted.toLocaleDateString('en-us') : '' %></td>
-										<td><%= papers[i].reviewerID ? papers[i].reviewerID : '' %></td>
+										<td><%= papersInProgress[i].manuscriptNumber %></td>
+										<td><%= papersInProgress[i].status %></td>
+										<td><a href="/papers/paper/<%= papersInProgress[i].manuscriptNumber %>"><%= papersInProgress[i].title %></a></td>
+										<td><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
+										<td><%= papersInProgress[i].reviewAccepted ? papersInProgress[i].reviewAccepted.toLocaleDateString('en-us') : '' %></td>
+										<td><%= papersInProgress[i].reviewerID ? papersInProgress[i].reviewerID : '' %></td>
+										<td><%= Math.floor((papersInProgress[i].reviewAccepted - Date.now()) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
+										<td><%= papersInProgress[i].status %></td>
 									</tr>
-									<% } %>
+								<% } %>
 							</tbody>
 						</table>
 					</div>
@@ -87,30 +89,20 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1749-084</td>
-									<td>Testing Layouts in Mobile and Desktop</td>
-									<td>Original</td>
-									<td>10/20/22</td>
-									<td>10/22/22</td>
-									<td>2 days</td>
-									<td>Link to Review</td>
-									<td>1003</td>
-									<td>4.3</td>
-									<td>4.2</td>
-								</tr>
-								<tr>
-									<td>1748-544</td>
-									<td>Philosophical Musings on website deisgn</td>
-									<td>Original</td>
-									<td>10/19/22</td>
-									<td>10/22/22</td>
-									<td>3 days</td>
-									<td>Link to Review</td>
-									<td>1005</td>
-									<td>4.5</td>
-									<td>5.0</td>
-								</tr>
+								<% for(var i=0; i<papersReviewed.length; i++) {%>
+									<tr>
+										<td><%= papersReviewed[i].manuscriptNumber %></td>
+										<td><a href="<%= papersReviewed[i].document %>"><%= papersInProgress[i].title %></a></td>
+										<td><%= papersReviewed[i].type %></td>
+										<td><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
+										<td><%= papersReviewed[i].reviewAccepted.toLocaleDateString('en-us') %></td>
+										<td><%= Math.floor((papersReviewed[i].reviewAccepted - papersReviewed[i].reviewCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
+										<td><a href="<%= papersReviewed[i].documentReview %>">Review</a></td>
+										<td><%= papersReviewed[i].reviewerID %></td>
+										<td>To Do</td>
+										<td>To Do</td>
+									</tr>
+								<% } %>
 							</tbody>
 						</table>
 					</div>

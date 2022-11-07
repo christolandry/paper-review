@@ -4569,3 +4569,39 @@ input, select, textarea {
 		display: none;
 	}
 }
+
+.pdfWrapper{
+	height: 80vh;
+}
+
+input[type="submit"].submitMinor{
+	font-size: inherit;	
+	font-weight: inherit;
+	color: inherit;
+	text-transform: none;
+	letter-spacing: inherit;
+	margin-right: 10px;
+}
+
+table tbody td{
+	vertical-align: middle;
+}
+
+.tableForm{
+	margin: 0;
+	vertical-align: middle;
+}
+
+.flex{
+	display: -moz-flex;
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+}
+
+.submitInput{
+	width: 15em;
+}

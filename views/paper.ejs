@@ -1,0 +1,61 @@
+<!-- Head -->
+	<%- include('partials/head') -%>
+
+<!-- Header -->
+	<%- include('partials/header') -%>
+
+<!-- Menu -->
+	<%- include('partials/nav') -%>
+
+<!-- Main -->
+	<article id="main">
+		<div class="wrapper">
+			<div class="inner">
+				
+				<!-- Banner -->
+					<div class="row gtr-200">
+						<div class="col-6 col-12-small">
+							<h2><%= paper.title %></h2>
+						</div>
+						<div class="col-6 col-12-small">
+							<h2 class="right-small-fade">Branding</h2>
+						</div>
+					</div>
+
+					<hr class="major" />
+					
+					<div class="pdfWrapper">
+						<embed
+							src="<%= paper.document %>"
+							type="application/pdf"
+							frameBorder="0"
+							scrolling="auto"
+							height="100%"
+							width="100%"
+						></embed>
+					</div>
+
+					<hr class="major" />
+
+					<form action="/papers/review/<%= paper.manuscriptNumber %>" method="POST">
+						<div class="row gtr-uniform">
+							<div class="col-12">
+								<ul class="actions">
+									<li><input type="submit" value="Review This Paper" class="primary" /></li>
+									<li>
+										<input type="checkbox" id="agree" name="agree">
+										<label for="agree">I agree to return a completed review in a week's time.</label>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</form>
+			</div>
+		</div>
+	</article>
+
+<!-- Footer -->
+	<%- include('partials/footer') -%>
+
+<!-- Scripts & Close -->
+	<%- include('partials/scripts') -%>

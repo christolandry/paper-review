@@ -25,18 +25,42 @@ module.exports = {
   //     console.log(err);
   //   }
   // },
-  // getPost: async (req, res) => {
-  //   try {
-  //     //id parameter comes from the post routes
-  //     //router.get("/:id", ensureAuth, postsController.getPost);
-  //     //http://localhost:2121/post/631a7f59a3e56acfc7da286f
-  //     //id === 631a7f59a3e56acfc7da286f
-  //     const post = await Post.findById(req.params.id);
-  //     res.render("post.ejs", { post: post, user: req.user});
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // },
+  getPaper: async (req, res) => {
+    try {
+      //id parameter comes from the post routes
+      //router.get("/:id", ensureAuth, postsController.getPost);
+      //http://localhost:2121/post/631a7f59a3e56acfc7da286f
+      //id === 631a7f59a3e56acfc7da286f
+      const paper = await Paper.findOne({ manuscriptNumber: req.params.manuscriptNumber});
+      res.render("paper.ejs", { user: req.user, paper: paper, title: `- Paper ${req.params.manuscriptNumber}`});
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  postPaper: async (req, res) => {
+    try {
+      console.log("-----------------")
+      console.log("This is: postPaper in papers.js controllers")
+      console.log(req.body.hasOwnProperty("agree"))
+      const paper = await Paper.findOne({ manuscriptNumber: req.params.manuscriptNumber});
+      console.log("********** Check 1 **************")
+      //if they didn't agree to terms, send them back to the page.
+      if(!req.body.hasOwnProperty("agree") || paper.author == req.user.id){
+        res.redirect(`paper/${req.params.manuscriptNumber}`);
+      }
+      await Paper.findOneAndUpdate(
+        { manuscriptNumber: req.params.manuscriptNumber },
+        {
+          reviewAccepted: Date.now(),
+          reviewerID: req.user.reviewerID, 
+          status: "Under Review"        
+        }
+      );
+      res.redirect("/user/reviewer");
+    } catch (err) {
+      console.log(err);
+    }
+  },
   createPaper: async (req, res) => {
     try {
       // Upload image to cloudinary
@@ -79,17 +103,31 @@ module.exports = {
         )
         console.log(`Email sent to: ${user.email}`)
       })
-      
-      client.sendMail(
-        {
-          from: "paperreviewapp@gmail.com",
-          to: "christo.landry@gmail.com",
-          subject: "Testing",
-          html: "Click this <a href='https://paper-review.vercel.app/papers'>link</a> to view all papers you can review",
-        }
-      )
 
       res.redirect("/user/author");
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  submitReview: async (req, res) => {
+    try {
+      // Upload pdf to cloudinary
+      const result = await cloudinary.uploader.upload(req.file.path);
+      console.log("*********** Check 1 **************")
+      console.log(req.params.manuscriptNumber)
+      console.log("*********** Check 2 **************")
+      //media is stored on cloudainary - the above request responds with url to media and the media id that will be needed when deleting content 
+      await Paper.findOneAndUpdate(
+        { manuscriptNumber: req.params.manuscriptNumber },
+        {
+          reviewCompleted: Date.now(),
+          status: "Review Complete",          
+          documentReview: result.secure_url,
+          cloudinaryIdReview: result.public_id,        
+        }
+      );
+      console.log("*********** Check 3 **************")
+      res.redirect("/user/reviewer");
     } catch (err) {
       console.log(err);
     }

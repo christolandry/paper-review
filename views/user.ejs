@@ -27,7 +27,7 @@
 									<table>
 										<thead>
 											<tr>
-												<th>Submissions</th>
+												<th>Manuscript Number</th>
 												<th>Status</th>
 												<th>Date of Last Change</th>
 												<th>Article Type</th>
@@ -35,20 +35,23 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>1749-084</td>
-												<td>Completed</td>
-												<td>10/31/22</td>
-												<td>Original</td>
-												<td>Testing Layouts in Mobile and Desktop</td>
-											</tr>
-											<tr>
-												<td>1748-544</td>
-												<td>Completed</td>
-												<td>10/31/22</td>
-												<td>Original</td>
-												<td>Philosophical Musings on website deisgn</td>
-											</tr>
+											<% for(var i=0; i<papersSubmited.length; i++) {%>
+												<tr>
+													<td><%= papersSubmited[i].manuscriptNumber %></td>
+													<td><%= papersSubmited[i].status %></td>
+													<td>
+														<% if(papersSubmited[i].reviewCompleted) { %> 
+															<%= papersSubmited[i].reviewCompleted.toLocaleDateString('en-us') %> 
+														<% } else if(papersSubmited[i].reviewAccepted) {%>
+															<%= papersSubmited[i].reviewAccepted.toLocaleDateString('en-us') %> 
+														<% } else {%>
+															<%= papersSubmited[i].createdAt.toLocaleDateString('en-us') %> 
+														<% } %>
+													</td>
+													<td><%= papersSubmited[i].type %></td>
+													<td><a href="<%= papersSubmited[i].document %>"><%= papersSubmited[i].title %></a></td>
+												</tr>
+											<% } %>
 										</tbody>
 										
 									</table>
@@ -77,20 +80,15 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>1749-084</td>
-												<td>Completed</td>
-												<td>Original</td>
-												<td>Testing Layouts in Mobile and Desktop</td>
-												<td>10/31/22</td>
-											</tr>
-											<tr>
-												<td>1748-544</td>
-												<td>Completed</td>
-												<td>Original</td>
-												<td>Philosophical Musings on website deisgn</td>
-												<td>10/31/22</td>
-											</tr>
+											<% for(var i=0; i<papersUnderReview.length; i++) {%>
+												<tr>
+													<td><%= papersUnderReview[i].manuscriptNumber %></td>
+													<td><%= papersUnderReview[i].status %></td>
+													<td><%= papersUnderReview[i].type %></td>
+													<td><a href="<%= papersSubmited[i].document %>"><%= papersSubmited[i].title %></a></td>
+													<td><%= papersUnderReview[i].reviewAccepted.toLocaleDateString('en-us') + 7 %></td>
+												</tr>
+											<% } %>
 										</tbody>
 									</table>
 								</div>

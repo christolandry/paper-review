@@ -29,24 +29,29 @@
 							<thead>
 								<tr>
 									<th>Manuscript Number</th>
+									<th>Title</th>
 									<th>Date Accepted</th>
 									<th>Time Since Accepted</th>
 									<th>Review Template</th>
+									<th>Submit Review</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1749-084</td>
-									<td>10/2/22</td>
-									<td>25 days</td>
-									<td>Link to review template</td>
-								</tr>
-								<tr>
-									<td>1748-544</td>
-									<td>10/17/22</td>
-									<td>10 days</td>
-									<td>Link to review template</td>
-								</tr>
+								<% for(var i=0; i<papersUnderReview.length; i++) {%>
+									<tr>
+										<td><%= papersUnderReview[i].manuscriptNumber %></td>
+										<td><%= papersUnderReview[i].title %></td>
+										<td><%= papersUnderReview[i].reviewAccepted.toLocaleDateString('en-us') %></td>
+										<td><%= Math.floor((papersUnderReview[i].reviewAccepted - Date.now()) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
+										<td>Download</td>
+										<td>
+											<form action="/papers/submitReview/<%= papersUnderReview[i].manuscriptNumber %>" enctype="multipart/form-data" method="POST" class="tableForm flex">
+												<input type="submit" value="Submit" class="submitMinor"/>
+												<input type="file" id="imageUpload" name="file" class="submitInput">
+											</form>
+										</td>
+									</tr>
+								<% } %>
 							</tbody>
 						</table>
 					</div>
@@ -89,26 +94,18 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1749-084</td>
-									<td>Original</td>
-									<td>Testing Layouts in Mobile and Desktop</td>
-									<td>10/20/22</td>
-									<td>10/22/22</td>
-									<td>2 days</td>
-									<td>Review Link</td>
-									<td>4.3</td>
-								</tr>
-								<tr>
-									<td>1748-544</td>
-									<td>Original</td>
-									<td>Philosophical Musings on website deisgn</td>
-									<td>10/19/22</td>
-									<td>10/22/22</td>
-									<td>3 days</td>
-									<td>Review Link</td>
-									<td>4.5</td>
-								</tr>
+								<% for(var i=0; i<papersReviewed.length; i++) {%>
+									<tr>
+										<td><%= papersReviewed[i].manuscriptNumber %></td>
+										<td><%= papersReviewed[i].type %></td>
+										<td><%= papersReviewed[i].title %></td>
+										<td><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
+										<td><%= papersReviewed[i].reviewAccepted.toLocaleDateString('en-us') %></td>
+										<td><%= Math.floor((papersReviewed[i].reviewAccepted - Date.now()) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
+										<td><a href="<%= papersReviewed[i].documentReview %>">Review</a></td>
+										<td>To Do</td>
+									</tr>
+								<% } %>
 							</tbody>
 						</table>
 					</div>

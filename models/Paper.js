@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const PaperSchema = new mongoose.Schema({
+  //----- Paper Information ----------
   manuscriptNumber: {
     type: Number,
     required: true,
@@ -17,14 +18,6 @@ const PaperSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  document: {
-    type: String,
-    require: true,
-  },
-  cloudinaryId: {
-    type: String,
-    require: true,
-  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -33,17 +26,38 @@ const PaperSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
+  //----- Paper PDF Storage ----------
+  document: {
+    type: String,
+    require: true,
   },
+  cloudinaryId: {
+    type: String,
+    require: true,
+  },
+  //----- Review Information ---------
   reviewAccepted: {
+    type: Date,
+    default: "",
+  },
+  reviewCompleted: {
     type: Date,
     default: "",
   },
   reviewerID: {
     type: Number,
     default: "",
+  },
+  reviewRating: {
+    type: Number,
+    default: "",
+  },
+  //----- Review PDF Storage ----------
+  documentReview: {
+    type: String,
+  },
+  cloudinaryIdReview: {
+    type: String,
   },
 });
 

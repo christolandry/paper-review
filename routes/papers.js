@@ -5,12 +5,19 @@ const papersController = require("../controllers/papers");
 const { ensureAuth } = require("../middleware/auth");
 
 //Papers Routes
-//Since linked from server js treat each path as:
-//post/:id, post/createPost, post/likePost/:id, post/deletePost/:id
-// router.get("/:id", ensureAuth, postsController.getPost);
 
 //Enables user to create post w/ cloudinary for media uploads
 router.post("/submit", upload.single("file"), papersController.createPaper);
+
+//Since linked from server js treat each path as:
+//get/:id, post/createPost, post/likePost/:id, post/deletePost/:id
+router.get("/paper/:manuscriptNumber", ensureAuth, papersController.getPaper);
+
+//post/:id agree to review a paper
+router.post("/review/:manuscriptNumber", ensureAuth, papersController.postPaper);
+
+//Upload of a review
+router.post("/submitReview/:manuscriptNumber", upload.single("file"), papersController.submitReview);
 
 //Page for user to submit a paper
 router.get("/submit", papersController.getSubmit);
