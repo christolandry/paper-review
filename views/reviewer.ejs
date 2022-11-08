@@ -40,7 +40,7 @@
 								<% for(var i=0; i<papersUnderReview.length; i++) {%>
 									<tr>
 										<td><%= papersUnderReview[i].manuscriptNumber %></td>
-										<td><%= papersUnderReview[i].title %></td>
+										<td><a href="<%= papersUnderReview[i].document %>" target="_blank"><%= papersUnderReview[i].title %></a></td>
 										<td><%= papersUnderReview[i].reviewAccepted.toLocaleDateString('en-us') %></td>
 										<td><%= Math.floor((papersUnderReview[i].reviewAccepted - Date.now()) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
 										<td>Download</td>
@@ -84,8 +84,8 @@
 							<thead>
 								<tr>
 									<th>Manuscript Number</th>
-									<th>Article Type</th>
-									<th>Article Title</th>
+									<th>Discipline</th>
+									<th>Title</th>
 									<th>Review Accepted</th>
 									<th>Reviewed</th>
 									<th>Time of Review</th>
@@ -97,7 +97,7 @@
 								<% for(var i=0; i<papersReviewed.length; i++) {%>
 									<tr>
 										<td><%= papersReviewed[i].manuscriptNumber %></td>
-										<td><%= papersReviewed[i].type %></td>
+										<td><%= papersReviewed[i].discipline %></td>
 										<td><%= papersReviewed[i].title %></td>
 										<td><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
 										<td><%= papersReviewed[i].reviewAccepted.toLocaleDateString('en-us') %></td>

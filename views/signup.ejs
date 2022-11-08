@@ -25,13 +25,21 @@
                 <% } %>
                 <form action="/signup" method="POST">
                     <div class="mb-3">
-                        <label for="userName" class="form-label">User Name</label>
-                        <input type="text" class="form-control" id="userName" name="userName">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="fullName" name="fullName">
                       </div>
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Email address</label>
+                      <label for="userName" class="form-label">User Name</label>
+                      <input type="text" class="form-control" id="userName" name="userName">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Academic Email Address</label>
                       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
                       <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="university" class="form-label">College/University</label>
+                      <input type="text" class="form-control" id="university" aria-describedby="university" name="university">
                     </div>
                     <div class="mb-3">
                       <label for="password" class="form-label">Password</label>
@@ -41,6 +49,43 @@
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
                       </div>
+                    <div class="mb-3">
+                      <label for="discipline" class="form-label">Choose Discipline</label>
+                      <select name="discipline" id="discipline">
+                        <option value="">- Discipline -</option>
+                        <option value="Africana Studies">Africana Studies</option>
+                        <option value="Anthropology">Anthropology</option>
+                        <option value="Art History">Art History</option>
+                        <option value="Biology">Biology</option>
+                        <option value="Business">Business</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Classics">Classics</option>
+                        <option value="Communications">Communications</option>
+                        <option value="Comparative Literature">Comparative Literature</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Dance">Dance</option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="Earth and Environmental Sciences">Earth and Environmental Sciences</option>
+                        <option value="Economics">Economics</option>
+                        <option value="Education">Education</option>
+                        <option value="English">English</option>
+                        <option value="Geology">Geology</option>
+                        <option value="History">History</option>
+                        <option value="Law">Law</option>
+                        <option value="Language and Culture">Language and Culture</option>
+                        <option value="Linguistics">Linguistics</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Music">Music</option>
+                        <option value="Philosophy">Philosophy</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Political Science">Political Science</option>
+                        <option value="Psychology">Psychology</option>
+                        <option value="Public Policy">Public Policy</option>
+                        <option value="Religious Studies">Religious Studies</option>
+                        <option value="Sociology">Sociology</option>
+                        <option value="Theater and Performance">Theater and Performance</option>
+                      </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </form>
             </section>

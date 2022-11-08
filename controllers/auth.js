@@ -82,13 +82,15 @@ exports.postSignup = async (req, res, next) => {
   });
 
   let counter = await ReviewerIDCounter.findOne({ title: "counter" });
-  console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-  console.log(counter)
   const user = new User({
+    fullName: req.body.fullName,
     userName: req.body.userName,
     email: req.body.email,
+    university: req.body.university,
     password: req.body.password,
     reviewerID: counter.current + 1,
+    discipline: req.body.discipline,
+    subjects: [covertToCamelCase(req.body.discipline)]
   });
 
   User.findOne(
@@ -103,13 +105,11 @@ exports.postSignup = async (req, res, next) => {
         });
         return res.redirect("../signup");
       }
-      console.log("********** Check 0 ***********")
       incrementReviewerIDCounter()
       user.save((err) => {
         if (err) {
           return next(err);
         }
-        console.log("********** Check 3 ***********")
         req.logIn(user, (err) => {
           if (err) {
             return next(err);
@@ -122,12 +122,16 @@ exports.postSignup = async (req, res, next) => {
 };
 
 async function incrementReviewerIDCounter (){
-  console.log("********** Check 1 ***********")
   await ReviewerIDCounter.findOneAndUpdate(
     { title: "counter"},
     {
       $inc: { current : 1 },
     }
   );
-  console.log("********** Check 2 ***********")
+}
+
+function covertToCamelCase(str){
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+    return index === 0 ? word.toLowerCase() : word.toUpperCase();
+  }).replace(/\s+/g, '');
 }

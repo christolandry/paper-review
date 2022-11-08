@@ -12,25 +12,8 @@ const client = nodemailer.createTransport({
 });
 
 module.exports = {
-  // getProfile: async (req, res) => { 
-  //   console.log(req.user)
-  //   try {
-  //     //Since we have a session each request (req) contains the logged-in users info: req.user
-  //     //console.log(req.user) to see everything
-  //     //Grabbing just the posts of the logged-in user
-  //     const posts = await Post.find({ user: req.user.id });
-  //     //Sending post data from mongodb and user data to ejs template
-  //     res.render("profile.ejs", { posts: posts, user: req.user });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // },
   getPaper: async (req, res) => {
     try {
-      //id parameter comes from the post routes
-      //router.get("/:id", ensureAuth, postsController.getPost);
-      //http://localhost:2121/post/631a7f59a3e56acfc7da286f
-      //id === 631a7f59a3e56acfc7da286f
       const paper = await Paper.findOne({ manuscriptNumber: req.params.manuscriptNumber});
       res.render("paper.ejs", { user: req.user, paper: paper, title: `- Paper ${req.params.manuscriptNumber}`});
     } catch (err) {
@@ -39,11 +22,7 @@ module.exports = {
   },
   postPaper: async (req, res) => {
     try {
-      console.log("-----------------")
-      console.log("This is: postPaper in papers.js controllers")
-      console.log(req.body.hasOwnProperty("agree"))
       const paper = await Paper.findOne({ manuscriptNumber: req.params.manuscriptNumber});
-      console.log("********** Check 1 **************")
       //if they didn't agree to terms, send them back to the page.
       if(!req.body.hasOwnProperty("agree") || paper.author == req.user.id){
         res.redirect(`paper/${req.params.manuscriptNumber}`);
@@ -71,12 +50,54 @@ module.exports = {
                 $inc: { current : 1 },
               }
             );
+      console.log("***************** Check 1 ****************")
       const counter = await PaperCounter.findOne({ title: "counter" });
       //media is stored on cloudainary - the above request responds with url to media and the media id that will be needed when deleting content 
+      let disciplines = ['africanaStudies', 
+                      'anthropology',
+                      'artHistory',
+                      'biology',
+                      'business',
+                      'chemistry',
+                      'classics',
+                      'communications',
+                      'comparativeLiterature',
+                      'computerScience',
+                      'dance',
+                      'data Science',
+                      'earthAndEnvironmentalSciences',
+                      'economics',
+                      'education',
+                      'english',
+                      'geology',
+                      'history',
+                      'law',
+                      'languageAndCulture',
+                      'linguistics',
+                      'mathematics',
+                      'music',
+                      'philosophy',
+                      'physics',
+                      'politicalScience',
+                      'psychology',
+                      'publicPolicy',
+                      'religiousStudies',
+                      'sociology',
+                      'theaterAndPerformance']
+      let subDisciplines = []
+      console.log("***************** Check 2 ****************")
+      for (const key in req.body){
+        if(disciplines.includes(key)) subDisciplines.push(key)
+      }     
+      console.log("***************** Check 3 ****************")
       await Paper.create({
         manuscriptNumber: counter.current,
         title: req.body.title,
-        type: req.body.type,
+        discipline: req.body.discipline,
+        disciplineSub: subDisciplines,
+        description: req.body.description,
+        keywords: req.body.keywords.split(",").forEach(word => word.trim()),
+        feedback: req.body.feedback,
         document: result.secure_url,
         cloudinaryId: result.public_id,        
         author: req.user.id,
@@ -85,20 +106,29 @@ module.exports = {
       //get all email address that have the subject of the paper being added and send out an email to them.
       
       let users = await User.find()
+      console.log("Users")
       console.log(users)
-      let filteredUsers = users.filter(i => {
-        console.log(i.subjects)
-        console.log(req.body.type)
-        return i.subjects.includes(req.body.type.toLowerCase()) && (i.email !== req.user.email)})
+      let filteredUsers = users.filter(i => i.subjects.includes(covertToCamelCase(req.body.discipline)) && (i.email !== req.user.email))
+      console.log("***************** Check 1 ****************")
+      console.log("Filtered Users")
       console.log(filteredUsers)
 
       filteredUsers.forEach(user => {
+        let userEmail = user.emailPreferred ? user.emailPreferred : user.email
         client.sendMail(
           {
             from: "paperreviewapp@gmail.com",
-            to: user.email,
+            to: userEmail,
             subject: "Paper Review - A new paper of your subject matter has been uploaded",
-            html: "Click this <a href='https://paper-review.vercel.app/papers'>link</a> to view all papers you can review",
+            html: `
+              A new paper has been uploaded that you are able to review.
+              <br>Title: ${req.body.title}
+              <br>Discipline: ${req.body.discipline}
+              <br>Sub-Discipline(s): ${subDisciplines.join(", ")}
+              <br>Keywords: ${req.body.keywords}
+              <br>description: ${req.body.description}
+              <br>Click this <a href='https://paper-review.vercel.app/papers'>link</a> to view all papers you can review
+            `,
           }
         )
         console.log(`Email sent to: ${user.email}`)
@@ -113,9 +143,6 @@ module.exports = {
     try {
       // Upload pdf to cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
-      console.log("*********** Check 1 **************")
-      console.log(req.params.manuscriptNumber)
-      console.log("*********** Check 2 **************")
       //media is stored on cloudainary - the above request responds with url to media and the media id that will be needed when deleting content 
       await Paper.findOneAndUpdate(
         { manuscriptNumber: req.params.manuscriptNumber },
@@ -126,7 +153,6 @@ module.exports = {
           cloudinaryIdReview: result.public_id,        
         }
       );
-      console.log("*********** Check 3 **************")
       res.redirect("/user/reviewer");
     } catch (err) {
       console.log(err);
@@ -142,38 +168,16 @@ module.exports = {
   getPapers: async (req, res) => {
     try {
       const papers = await Paper.find();
-      let filteredPapers = papers.filter(paper => req.user.subjects.includes(paper.type.toLowerCase()))
+      let filteredPapers = papers.filter(paper => req.user.subjects.includes(covertToCamelCase(paper.discipline.toLowerCase())))
       res.render("papers.ejs", { user: req.user, papers: filteredPapers, title: "- Available Papers" });
     } catch (err) {
       console.log(err);
     }
   }
-  // likePost: async (req, res) => {
-  //   try {
-  //     await Post.findOneAndUpdate(
-  //       { _id: req.params.id },
-  //       {
-  //         $inc: { likes: 1 },
-  //       }
-  //     );
-  //     console.log("Likes +1");
-  //     res.redirect(`/post/${req.params.id}`);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // },
-  // deletePost: async (req, res) => {
-  //   try {
-  //     // Find post by id
-  //     let post = await Post.findById({ _id: req.params.id });
-  //     // Delete image from cloudinary
-  //     await cloudinary.uploader.destroy(post.cloudinaryId);
-  //     // Delete post from db
-  //     await Post.remove({ _id: req.params.id });
-  //     console.log("Deleted Post");
-  //     res.redirect("/profile");
-  //   } catch (err) {
-  //     res.redirect("/profile");
-  //   }
-  // },
 };
+
+function covertToCamelCase(str){
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+    return index === 0 ? word.toLowerCase() : word.toUpperCase();
+  }).replace(/\s+/g, '');
+}

@@ -2,6 +2,10 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
+  fullName: { 
+    type: String, 
+    required: true,
+  },
   userName: { 
     type: String, 
     unique: true 
@@ -9,6 +13,10 @@ const UserSchema = new mongoose.Schema({
   email: { 
     type: String, 
     unique: true 
+  },
+  emailPreferred: { 
+    type: String, 
+    default: "",
   },
   password: String,
   university: {
@@ -19,6 +27,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  discipline: {
+    type: String,
+    default: "",
+  },
   subjects: {
     type: Array,
     default: [],
@@ -26,6 +38,10 @@ const UserSchema = new mongoose.Schema({
   reviewerID: {
     type: Number,
   },
+  verified:{
+    type: Boolean,
+    default: false,
+  }
 });
 
 // Password hash middleware.

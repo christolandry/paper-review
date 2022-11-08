@@ -16,46 +16,201 @@
 						<form action="/papers/submit" enctype="multipart/form-data" method="POST">
 							<div class="row gtr-uniform">
 								<div class="col-6 col-12-xsmall">
+									<label for="title">Paper Title</label>
 									<input type="text" name="title" id="title" value="" placeholder="Paper Title" />
 								</div>
 								<div class="col-6 col-12-xsmall">
-									<select name="type" id="type">
-										<option value="">- Paper Type -</option>
-										<option value="Original">Original</option>
-										<option value="Non-Original">Non-Original</option>
-									</select>
+								  <label for="discipline">Paper Discipline</label>
+								  <select name="discipline" id="discipline">
+									<option value="">- Discipline -</option>
+									<option value="Africana Studies">Africana Studies</option>
+									<option value="Anthropology">Anthropology</option>
+									<option value="Art History">Art History</option>
+									<option value="Biology">Biology</option>
+									<option value="Business">Business</option>
+									<option value="Chemistry">Chemistry</option>
+									<option value="Classics">Classics</option>
+									<option value="Communications">Communications</option>
+									<option value="Comparative Literature">Comparative Literature</option>
+									<option value="Computer Science">Computer Science</option>
+									<option value="Dance">Dance</option>
+									<option value="Data Science">Data Science</option>
+									<option value="Earth and Environmental Sciences">Earth and Environmental Sciences</option>
+									<option value="Economics">Economics</option>
+									<option value="Education">Education</option>
+									<option value="English">English</option>
+									<option value="Geology">Geology</option>
+									<option value="History">History</option>
+									<option value="Law">Law</option>
+									<option value="Language and Culture">Language and Culture</option>
+									<option value="Linguistics">Linguistics</option>
+									<option value="Mathematics">Mathematics</option>
+									<option value="Music">Music</option>
+									<option value="Philosophy">Philosophy</option>
+									<option value="Physics">Physics</option>
+									<option value="Political Science">Political Science</option>
+									<option value="Psychology">Psychology</option>
+									<option value="Public Policy">Public Policy</option>
+									<option value="Religious Studies">Religious Studies</option>
+									<option value="Sociology">Sociology</option>
+									<option value="Theater and Performance">Theater and Performance</option>
+								  </select>
 								</div>
 								<!-- Break -->
 								<div class="col-12">
+									<h5>Sub-Disciplines</h5>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="africanaStudies" name="africanaStudies" <% if(user.subjects.includes("africanaStudies")) { %> checked <% } %>>
+									<label for="africanaStudies">Africana Studies</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="anthropology" name="anthropology" <% if(user.subjects.includes("anthropology")) { %> checked <% } %>>
+									<label for="anthropology">Anthropology</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="artHistory" name="artHistory" <% if(user.subjects.includes("artHistory")) { %> checked <% } %>>
+									<label for="artHistory">Art History</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="biology" name="biology" <% if(user.subjects.includes("biology")) { %> checked <% } %>>
+									<label for="biology">Biology</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="business" name="business" <% if(user.subjects.includes("business")) { %> checked <% } %>>
+									<label for="business">Business</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="chemistry" name="chemistry" <% if(user.subjects.includes("chemistry")) { %> checked <% } %>>
+									<label for="chemistry">Chemistry</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="classics" name="classics" <% if(user.subjects.includes("classics")) { %> checked <% } %>>
+									<label for="classics">Classics</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="communications" name="communications" <% if(user.subjects.includes("communications")) { %> checked <% } %>>
+									<label for="communications">Communications</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="comparativeLiterature" name="comparativeLiterature" <% if(user.subjects.includes("comparativeLiterature")) { %> checked <% } %>>
+									<label for="comparativeLiterature">Comparative Literature</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="computerScience" name="computerScience" <% if(user.subjects.includes("computerScience")) { %> checked <% } %>>
+									<label for="computerScience">Computer Science</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="dance" name="dance" <% if(user.subjects.includes("dance")) { %> checked <% } %>>
+									<label for="dance">Dance</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="dataScience" name="dataScience" <% if(user.subjects.includes("dataScience")) { %> checked <% } %>>
+									<label for="dataScience">Data Science</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="earthAndEnvironmentalSciences" name="earthAndEnvironmentalSciences" <% if(user.subjects.includes("earthAndEnvironmentalSciences")) { %> checked <% } %>>
+									<label for="earthAndEnvironmentalSciences">Earth and Environmental Sciences</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="economics" name="economics" <% if(user.subjects.includes("economics")) { %> checked <% } %>>
+									<label for="economics">Economics</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="education" name="education" <% if(user.subjects.includes("education")) { %> checked <% } %>>
+									<label for="education">Education</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="english" name="english" <% if(user.subjects.includes("english")) { %> checked <% } %>>
+									<label for="english">English</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="geology" name="geology" <% if(user.subjects.includes("geology")) { %> checked <% } %>>
+									<label for="geology">Geology</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="history" name="history" <% if(user.subjects.includes("history")) { %> checked <% } %>>
+									<label for="history">History</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="law" name="law" <% if(user.subjects.includes("law")) { %> checked <% } %>>
+									<label for="law">Law</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="languageAndCulture" name="languageAndCulture" <% if(user.subjects.includes("languageAndCulture")) { %> checked <% } %>>
+									<label for="languageAndCulture">Language and Culture</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="linguistics" name="linguistics" <% if(user.subjects.includes("linguistics")) { %> checked <% } %>>
+									<label for="linguistics">Linguistics</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="mathematics" name="mathematics" <% if(user.subjects.includes("mathematics")) { %> checked <% } %>>
+									<label for="mathematics">Mathematics</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="music" name="music" <% if(user.subjects.includes("music")) { %> checked <% } %>>
+									<label for="music">Music</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="philosophy" name="philosophy" <% if(user.subjects.includes("philosophy")) { %> checked <% } %>>
+									<label for="philosophy">Philosophy</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="physics" name="physics" <% if(user.subjects.includes("physics")) { %> checked <% } %>>
+									<label for="physics">Physics</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="politicalScience" name="politicalScience" <% if(user.subjects.includes("politicalScience")) { %> checked <% } %>>
+									<label for="politicalScience">Political Science</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="psychology" name="psychology" <% if(user.subjects.includes("psychology")) { %> checked <% } %>>
+									<label for="psychology">Psychology</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="publicPolicy" name="publicPolicy" <% if(user.subjects.includes("publicPolicy")) { %> checked <% } %>>
+									<label for="publicPolicy">Public Policy</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="religiousStudies" name="religiousStudies" <% if(user.subjects.includes("religiousStudies")) { %> checked <% } %>>
+									<label for="religiousStudies">Religious Studies</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="sociology" name="sociology" <% if(user.subjects.includes("sociology")) { %> checked <% } %>>
+									<label for="sociology">Sociology</label>
+								</div>
+								<div class="col-3 col-12-small">
+									<input type="checkbox" id="theaterAndPerformance" name="theaterAndPerformance" <% if(user.subjects.includes("theaterAndPerformance")) { %> checked <% } %>>
+									<label for="theaterAndPerformance">Theater and Performance</label>
+								</div>
+								<!-- Break -->
+								<div class="col-6 col-12-xsmall">
+									<label for="description">Paper Description</label>
+									<textarea name="description" id="description" placeholder="Description" rows="3" maxlength="150"></textarea>
+								</div>
+								<div class="col-6 col-12-xsmall">
+									<label for="keywords">Keywords (comma separated)</label>
+									<textarea name="keywords" id="keywords" placeholder="Keyword one, keyword two" rows="3" maxlength="50"></textarea>
+								</div>
+								<!-- Break -->
+								<div class="col-6 col-12-xsmall">
+									<label for="feedback">Specific Feedback Requested</label>
+									<textarea name="feedback" id="feedback" placeholder="Specific feedback requests" rows="3" maxlength="150"></textarea>
+								</div>
+								<div class="col-6 col-12-xsmall">
+									<label for="feedback">Number of Reviews Requested</label>
 									<select name="category" id="category">
-										<option value="">- Category -</option>
-										<option value="1">Manufacturing</option>
-										<option value="1">Shipping</option>
-										<option value="1">Administration</option>
-										<option value="1">Human Resources</option>
+										<option value="1">1 (restricted to one as you wanted first come first serve)</option>
+										<!-- <option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option> -->
 									</select>
 								</div>
 								<!-- Break -->
 								<div class="col-12">
 									<input type="file" id="imageUpload" name="file">
-								</div>
-								<!-- Break -->
-								<div class="col-4 col-12-small">
-									<input type="radio" id="priority-low" name="priority" checked>
-									<label for="priority-low">Low Priority</label>
-								</div>
-								<div class="col-4 col-12-small">
-									<input type="radio" id="priority-normal" name="priority">
-									<label for="priority-normal">Normal Priority</label>
-								</div>
-								<div class="col-4 col-12-small">
-									<input type="radio" id="priority-high" name="priority">
-									<label for="priority-high">High Priority</label>
-								</div>
-								
-								<!-- Break -->
-								<div class="col-12">
-									<textarea name="message" id="message" placeholder="Enter your message" rows="6"></textarea>
 								</div>
 								<!-- Break -->
 								<div class="col-12">

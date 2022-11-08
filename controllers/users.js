@@ -45,25 +45,50 @@ module.exports = {
   },
   updateSettings: async (req, res) => {
     try {
-      console.log("*******************************************")
-      console.log(req.body)
-      let subjects = ["philosopy", "economics", "original", "non-original"]
+      let subjects = ['africanaStudies', 
+                      'anthropology',
+                      'artHistory',
+                      'biology',
+                      'business',
+                      'chemistry',
+                      'classics',
+                      'communications',
+                      'comparativeLiterature',
+                      'computerScience',
+                      'dance',
+                      'data Science',
+                      'earthAndEnvironmentalSciences',
+                      'economics',
+                      'education',
+                      'english',
+                      'geology',
+                      'history',
+                      'law',
+                      'languageAndCulture',
+                      'linguistics',
+                      'mathematics',
+                      'music',
+                      'philosophy',
+                      'physics',
+                      'politicalScience',
+                      'psychology',
+                      'publicPolicy',
+                      'religiousStudies',
+                      'sociology',
+                      'theaterAndPerformance']
       let userSubjects = []
       for (const key in req.body){
         if(subjects.includes(key)) userSubjects.push(key)
       }
-
-      console.log("userSubjects")
-      console.log(userSubjects)
-      console.log("req.user")
-      console.log(req.user)
       await User.findOneAndUpdate(
         { _id: req.user },
         {
           title: req.body.title == "" ? req.user.title : req.body.title,
           university: req.body.university == "" ? req.user.university : req.body.university,
           subjects: userSubjects.length ? userSubjects : req.user.subjects,
-          
+          discipline: req.body.discipline == "" ? req.user.discipline : req.body.discipline,
+          email: req.body.email == "" ? req.user.email : req.body.email,
+          emailPreferred: req.body.emailPreferred == "" ? req.user.emailPreferred : req.body.emailPreferred,
         }
       );
       return res.redirect("/user");

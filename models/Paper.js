@@ -14,8 +14,20 @@ const PaperSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  type: {
+  description: {
     type: String,
+    required: true,
+  },
+  discipline: {
+    type: String,
+    required: true,
+  },
+  disciplineSub: {
+    type: Array,
+    required: true,
+  },
+  keywords: {
+    type: Array,
     required: true,
   },
   createdAt: {
@@ -55,9 +67,11 @@ const PaperSchema = new mongoose.Schema({
   //----- Review PDF Storage ----------
   documentReview: {
     type: String,
+    default: "",
   },
   cloudinaryIdReview: {
     type: String,
+    default: "",
   },
 });
 

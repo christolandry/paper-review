@@ -74,8 +74,8 @@
 											<tr>
 												<th>Manuscript Number</th>
 												<th>Current Status</th>
-												<th>Article Type</th>
-												<th>Article Title</th>
+												<th>Discipline</th>
+												<th>Title</th>
 												<th>Date Review Due</th>
 											</tr>
 										</thead>
@@ -84,8 +84,8 @@
 												<tr>
 													<td><%= papersUnderReview[i].manuscriptNumber %></td>
 													<td><%= papersUnderReview[i].status %></td>
-													<td><%= papersUnderReview[i].type %></td>
-													<td><a href="<%= papersSubmited[i].document %>"><%= papersSubmited[i].title %></a></td>
+													<td><%= papersUnderReview[i].discipline %></td>
+													<td><a href="<%= papersUnderReview[i].document %>"><%= papersUnderReview[i].title %></a></td>
 													<td><%= papersUnderReview[i].reviewAccepted.toLocaleDateString('en-us') + 7 %></td>
 												</tr>
 											<% } %>

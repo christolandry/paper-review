@@ -48,6 +48,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    // cookie: { maxAge: 1000 * 60 * 60} //1000 miliseconds x 60 seconds x 60 min for 1 hour total
   })
 );
 

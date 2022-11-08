@@ -45,8 +45,6 @@
 										<td><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
 										<td><%= papersInProgress[i].reviewAccepted ? papersInProgress[i].reviewAccepted.toLocaleDateString('en-us') : '' %></td>
 										<td><%= papersInProgress[i].reviewerID ? papersInProgress[i].reviewerID : '' %></td>
-										<td><%= Math.floor((papersInProgress[i].reviewAccepted - Date.now()) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
-										<td><%= papersInProgress[i].status %></td>
 									</tr>
 								<% } %>
 							</tbody>
@@ -96,7 +94,7 @@
 										<td><%= papersReviewed[i].type %></td>
 										<td><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
 										<td><%= papersReviewed[i].reviewAccepted.toLocaleDateString('en-us') %></td>
-										<td><%= Math.floor((papersReviewed[i].reviewAccepted - papersReviewed[i].reviewCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
+										<td><%= Math.floor((papersReviewed[i].reviewAccepted - papersReviewed[i].reviewCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</td>
 										<td><a href="<%= papersReviewed[i].documentReview %>">Review</a></td>
 										<td><%= papersReviewed[i].reviewerID %></td>
 										<td>To Do</td>
