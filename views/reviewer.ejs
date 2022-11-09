@@ -83,7 +83,6 @@
 						<table>
 							<thead>
 								<tr>
-									<th>Manuscript Number</th>
 									<th>Discipline</th>
 									<th>Title</th>
 									<th>Review Accepted</th>
@@ -96,7 +95,6 @@
 							<tbody>
 								<% for(var i=0; i<papersReviewed.length; i++) {%>
 									<tr>
-										<td><%= papersReviewed[i].manuscriptNumber %></td>
 										<td><%= papersReviewed[i].discipline %></td>
 										<td><%= papersReviewed[i].title %></td>
 										<td><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>

@@ -126,7 +126,7 @@ module.exports = {
               <br>Discipline: ${req.body.discipline}
               <br>Sub-Discipline(s): ${subDisciplines.join(", ")}
               <br>Keywords: ${req.body.keywords}
-              <br>description: ${req.body.description}
+              <br>Description: ${req.body.description}
               <br>Click this <a href='https://paper-review.vercel.app/papers'>link</a> to view all papers you can review
             `,
           }
