@@ -31,6 +31,7 @@
 									<th>Title</th>
 									<th>Date Accepted</th>
 									<th>Time Since Accepted</th>
+									<th>Review Due</th>
 									<th>Review Template</th>
 									<th>Submit Review</th>
 								</tr>
@@ -41,6 +42,8 @@
 										<td><a href="<%= papersUnderReview[i].document %>" target="_blank"><%= papersUnderReview[i].title %></a></td>
 										<td><%= papersUnderReview[i].reviewAccepted.toLocaleDateString('en-us') %></td>
 										<td><%= Math.floor((papersUnderReview[i].reviewAccepted - Date.now()) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
+										<% papersUnderReview[i].reviewAccepted = papersUnderReview[i].reviewAccepted.setDate(papersUnderReview[i].reviewAccepted.getDate() + 7) %>
+										<td><%= papersUnderReview[i].reviewAccepted.toLocaleDateString('en-us') %></td>
 										<td>Download</td>
 										<td>
 											<form action="/papers/submitReview/<%= papersUnderReview[i].manuscriptNumber %>" enctype="multipart/form-data" method="POST" class="tableForm flex">

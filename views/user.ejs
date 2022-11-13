@@ -48,7 +48,7 @@
 															<%= papersSubmited[i].createdAt.toLocaleDateString('en-us') %> 
 														<% } %>
 													</td>
-													<td><%= papersSubmited[i].type %></td>
+													<td><%= papersSubmited[i].discipline %></td>
 													<td><a href="<%= papersSubmited[i].document %>"><%= papersSubmited[i].title %></a></td>
 												</tr>
 											<% } %>
@@ -86,7 +86,8 @@
 													<td><%= papersUnderReview[i].status %></td>
 													<td><%= papersUnderReview[i].discipline %></td>
 													<td><a href="<%= papersUnderReview[i].document %>"><%= papersUnderReview[i].title %></a></td>
-													<td><%= papersUnderReview[i].reviewAccepted.toLocaleDateString('en-us') + 7 %></td>
+													<% papersUnderReview[i].reviewAccepted = papersUnderReview[i].reviewAccepted.setDate(papersUnderReview[i].reviewAccepted.getDate() + 7) %>
+													<td><%= papersUnderReview[i].reviewAccepted.toLocaleDateString('en-us') %></td>
 												</tr>
 											<% } %>
 										</tbody>
