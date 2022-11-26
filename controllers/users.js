@@ -6,7 +6,7 @@ module.exports = {
     try {
       //Grabbing just the papers of the logged-in user
       const papersSubmited = await Paper.find({ author: req.user.id });
-      const papersUnderReview = await Paper.find({ reviewerID: req.user.reviewerID })
+      const papersUnderReview = await Paper.find({ reviews: {$elemMatch: {reviewerID: req.user.reviewerID}}})
       //Sending post data from mongodb and user data to ejs template
       res.render("user.ejs", { papersSubmited: papersSubmited, papersUnderReview: papersUnderReview, user: req.user, title: "- Overview" });
       
@@ -22,16 +22,36 @@ module.exports = {
       const reviews = papersReviewed.length
       const papersInProgress = papers.filter(i => i.status !== "Review Complete")
       //Sending post data from mongodb and user data to ejs template
-      res.render("author.ejs", { papersInProgress: papersInProgress, papersReviewed: papersReviewed, user: req.user, submitted: submitted, reviews: reviews, title: "- As Author" });
+      res.render("author.ejs", { papersInProgress: papersInProgress, papersReviewed: papersReviewed, user: req.user, submitted: submitted, title: "- As Author" });
     } catch (err) {
       console.log(err);
     }
   },
   getReviewer: async (req, res) => {
     try {
-      const papersUnderReview = await Paper.find({ reviewerID: req.user.reviewerID, status: "Under Review" })
-      const papersReviewed = await Paper.find({ reviewerID: req.user.reviewerID, status: "Review Complete" })
-      res.render("reviewer.ejs", { user: req.user, title: "- As Reviewer", papersUnderReview: papersUnderReview, papersReviewed: papersReviewed });
+
+      let papersUnderReview = await Paper.find({ reviews: {$elemMatch: {reviewerID: req.user.reviewerID, document: ""}}})
+      let papersReviewed = await Paper.find({ reviews: {$elemMatch: {reviewerID: req.user.reviewerID, document: {$ne: ""}}}})
+
+      reviewLookupUnderReview = []
+      papersUnderReview.forEach(paper => {
+        paper.reviews.forEach((review, index) => {
+          if(review.reviewerID == req.user.reviewerID){
+            reviewLookupUnderReview.push(index)
+          }
+        })
+      })
+
+      reviewLookupReviewed = []
+      papersReviewed.forEach(paper => {
+        paper.reviews.forEach((review, index) => {
+          if(review.reviewerID == req.user.reviewerID){
+            reviewLookupReviewed.push(index)
+          }
+        })
+      })
+
+      res.render("reviewer.ejs", { user: req.user, title: "- As Reviewer", papersUnderReview: papersUnderReview, reviewLookupUnderReview: reviewLookupUnderReview, reviewLookupReviewed: reviewLookupReviewed, papersReviewed: papersReviewed });
     } catch (err) {
       console.log(err);
     }

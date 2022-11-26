@@ -80,15 +80,21 @@
 											</tr>
 										</thead>
 										<tbody>
-											<% for(var i=0; i<papersUnderReview.length; i++) {%>
-												<tr>
-													<td><%= papersUnderReview[i].manuscriptNumber %></td>
-													<td><%= papersUnderReview[i].status %></td>
-													<td><%= papersUnderReview[i].discipline %></td>
-													<td><a href="<%= papersUnderReview[i].document %>"><%= papersUnderReview[i].title %></a></td>
-													<% papersUnderReview[i].reviewAccepted = papersUnderReview[i].reviewAccepted.setDate(papersUnderReview[i].reviewAccepted.getDate() + 7) %>
-													<td><%= papersUnderReview[i].reviewAccepted.toLocaleDateString('en-us') %></td>
-												</tr>
+											<% console.log(user) %>
+											<% for(let i=0; i<papersUnderReview.length; i++) {%>
+												<% for(let j=0; j<papersUnderReview[i].reviews.length; j++) {%>
+													<% if(true) {%>
+														<% let reviewAccepted = new Date(papersUnderReview[i].reviews[j].reviewAccepted) %>
+														<tr>
+															<td><%= papersUnderReview[i].manuscriptNumber %></td>
+															<td><%= papersUnderReview[i].status %></td>
+															<td><%= papersUnderReview[i].discipline %></td>
+															<td><a href="<%= papersUnderReview[i].reviews[j].document %>"><%= papersUnderReview[i].title %></a></td>
+															<% reviewAccepted = new Date(reviewAccepted.setDate(reviewAccepted.getDate() + 7)) %>
+															<td><%= reviewAccepted.toLocaleDateString('en-us') %></td>
+														</tr>
+													<% } %>
+												<% } %>
 											<% } %>
 										</tbody>
 									</table>

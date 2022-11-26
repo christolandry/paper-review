@@ -48,31 +48,40 @@ const PaperSchema = new mongoose.Schema({
     require: true,
   },
   //----- Review Information ---------
-  reviewAccepted: {
-    type: Date,
-    default: "",
+  reviews: {
+    type: [Object], //each review is: {reviewAccepted, reviewCompleted, reviewerID, reviewRating, document, cloudinaryID}
+    default: [],
   },
-  reviewCompleted: {
-    type: Date,
-    default: "",
-  },
-  reviewerID: {
+  reviewsRequested: {
     type: Number,
-    default: "",
+    required: true,
   },
-  reviewRating: {
-    type: Number,
-    default: "",
-  },
+  // Old review information when there was only one review per paper
+  // reviewAccepted: {
+  //   type: Date,
+  //   default: "",
+  // },
+  // reviewCompleted: {
+  //   type: Date,
+  //   default: "",
+  // },
+  // reviewerID: {
+  //   type: Number,
+  //   default: "",
+  // },
+  // reviewRating: {
+  //   type: Number,
+  //   default: "",
+  // },
   //----- Review PDF Storage ----------
-  documentReview: {
-    type: String,
-    default: "",
-  },
-  cloudinaryIdReview: {
-    type: String,
-    default: "",
-  },
+  // documentReview: {
+  //   type: String,
+  //   default: "",
+  // },
+  // cloudinaryIdReview: {
+  //   type: String,
+  //   default: "",
+  // },
 });
 
 //MongoDB Collection named here - will give lowercase plural of name 

@@ -37,15 +37,21 @@
 								</tr>
 							</thead>
 							<tbody>
-								<% for(var i=0; i<papersInProgress.length; i++) {%>
-									<tr>
-										<td><%= papersInProgress[i].manuscriptNumber %></td>
-										<td><%= papersInProgress[i].status %></td>
-										<td><a href="<%= papersInProgress[i].document %>" target="_blank"><%= papersInProgress[i].title %></a></td>
-										<td><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
-										<td><%= papersInProgress[i].reviewAccepted ? papersInProgress[i].reviewAccepted.toLocaleDateString('en-us') : '' %></td>
-										<td><%= papersInProgress[i].reviewerID ? papersInProgress[i].reviewerID : '' %></td>
-									</tr>
+								<% for(let i=0; i<papersInProgress.length; i++) {%>
+									<% for(let j=0; j<papersInProgress[i].reviews.length; j++) {%>
+										<% if(!papersInProgress[i].reviews[j].document) { %>
+											<% let reviewAccepted = new Date(papersInProgress[i].reviews[j].reviewAccepted) %>
+											<tr>
+												<td><%= papersInProgress[i].manuscriptNumber %></td>
+												<td><%= papersInProgress[i].status %></td>
+												<td><a href="<%= papersInProgress[i].reviews[j].document %>" target="_blank"><%= papersInProgress[i].title %></a></td>
+												<td><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
+												<!-- .toLocaleDateString('en-us') -->
+												<td><%= reviewAccepted ? reviewAccepted.toLocaleDateString('en-us') : '' %></td>
+												<td><%= papersInProgress[i].reviews[j].reviewerID ? papersInProgress[i].reviews[j].reviewerID : '' %></td>
+											</tr>
+										<% } %>
+									<% } %>
 								<% } %>
 							</tbody>
 						</table>
@@ -63,7 +69,7 @@
 							<tbody>
 								<tr>
 									<td><%= submitted %></td>
-									<td><%= reviews %></td>
+									<td>To Do</td>
 								</tr>
 							</tbody>
 						</table>
@@ -88,18 +94,24 @@
 							</thead>
 							<tbody>
 								<% for(var i=0; i<papersReviewed.length; i++) {%>
-									<tr>
-										<td><%= papersReviewed[i].manuscriptNumber %></td>
-										<td><a href="<%= papersReviewed[i].document %>"><%= papersInProgress[i].title %></a></td>
-										<td><%= papersReviewed[i].type %></td>
-										<td><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
-										<td><%= papersReviewed[i].reviewAccepted.toLocaleDateString('en-us') %></td>
-										<td><%= Math.floor((papersReviewed[i].reviewAccepted - papersReviewed[i].reviewCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</td>
-										<td><a href="<%= papersReviewed[i].documentReview %>">Review</a></td>
-										<td><%= papersReviewed[i].reviewerID %></td>
-										<td>To Do</td>
-										<td>To Do</td>
-									</tr>
+									<% for(var j=0; j<papersReviewed[i].reviews.length; j++) {%>
+										<% if(papersReviewed[i].reviews[j].reviewCompleted) {%>
+											<% let reviewAccepted = new Date(papersReviewed[i].reviews[j].reviewAccepted) %>
+											<% let reviewCompleted = new Date(papersReviewed[i].reviews[j].reviewCompleted) %>
+											<tr>
+												<td><%= papersReviewed[i].manuscriptNumber %></td>
+												<td><a href="<%= papersReviewed[i].reviews[j].document %>"><%= papersReviewed[i].title %></a></td>
+												<td><%= papersReviewed[i].type %></td>
+												<td><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
+												<td><%= reviewAccepted.toLocaleDateString('en-us') %></td>
+												<td><%= Math.floor((reviewAccepted - reviewCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</td>
+												<td><a href="<%= papersReviewed[i].reviews[j].document %>" target="_blank">Review</a></td>
+												<td><%= papersReviewed[i].reviews[j].reviewerID %></td>
+												<td>To Do</td>
+												<td>To Do</td>
+											</tr>
+										<% } %>
+									<% } %>
 								<% } %>
 							</tbody>
 						</table>

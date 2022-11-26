@@ -12,6 +12,7 @@ const client = nodemailer.createTransport({
 });
 
 module.exports = {
+  // Displaying a singular paper
   getPaper: async (req, res) => {
     try {
       const paper = await Paper.findOne({ manuscriptNumber: req.params.manuscriptNumber});
@@ -20,21 +21,39 @@ module.exports = {
       console.log(err);
     }
   },
+
+  // Agreeing to review a paper
   postPaper: async (req, res) => {
     try {
+      // Find the paper they want to review
       const paper = await Paper.findOne({ manuscriptNumber: req.params.manuscriptNumber});
-      //if they didn't agree to terms, send them back to the page.
+      
+      // If they didn't agree to terms, send them back to the page.
       if(!req.body.hasOwnProperty("agree") || paper.author == req.user.id){
         res.redirect(`paper/${req.params.manuscriptNumber}`);
       }
-      await Paper.findOneAndUpdate(
-        { manuscriptNumber: req.params.manuscriptNumber },
-        {
-          reviewAccepted: Date.now(),
-          reviewerID: req.user.reviewerID, 
-          status: "Under Review"        
-        }
-      );
+      
+      let review = {
+        reviewAccepted: Date.now(),
+        reviewCompleted: "",
+        reviewerID: req.user.reviewerID,
+        reviewerRating: "",
+        document: "",
+        cloudinaryID: "",
+      }
+
+      paper.reviews.push(review)
+      paper.status = "Under Review"
+      // await Paper.findOneAndUpdate(
+      //   { manuscriptNumber: req.params.manuscriptNumber },
+      //   {
+      //     reviews:  
+      //     status: "Under Review"        
+      //   }
+      // );
+
+      await paper.save();
+
       res.redirect("/user/reviewer");
     } catch (err) {
       console.log(err);
@@ -93,14 +112,15 @@ module.exports = {
       await Paper.create({
         manuscriptNumber: counter.current,
         title: req.body.title,
+        description: req.body.description,
         discipline: req.body.discipline,
         disciplineSub: subDisciplines,
-        description: req.body.description,
         keywords: req.body.keywords.split(",").forEach(word => word.trim()),
         feedback: req.body.feedback,
         document: result.secure_url,
         cloudinaryId: result.public_id,        
         author: req.user.id,
+        reviewsRequested: req.body.reviews
       });
       console.log("Paper has been added!");
       //get all email address that have the subject of the paper being added and send out an email to them.
@@ -144,15 +164,24 @@ module.exports = {
       // Upload pdf to cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
       //media is stored on cloudainary - the above request responds with url to media and the media id that will be needed when deleting content 
-      await Paper.findOneAndUpdate(
-        { manuscriptNumber: req.params.manuscriptNumber },
-        {
-          reviewCompleted: Date.now(),
-          status: "Review Complete",          
-          documentReview: result.secure_url,
-          cloudinaryIdReview: result.public_id,        
+      let paper = await Paper.findOne({ manuscriptNumber: req.params.manuscriptNumber })
+      let reviewCount = 1;
+      paper.reviews.forEach(review => {
+        if(review.reviewerID === req.user.reviewerID){
+          review.reviewCompleted = Date.now();
+          review.document = result.secure_url;
+          review.cloudinaryID = result.public_id;
         }
-      );
+        if(review.Completed) reviewCount++
+      })
+      console.log(`Review Count ${reviewCount}`)
+      console.log(`Reviews Requested ${paper.reviewsRequested}`);
+      if(reviewCount == paper.reviewsRequested) {
+        paper.status = "Review Complete"
+        console.log("Status changed");
+      }
+      paper.markModified('reviews')
+      paper.save()
       res.redirect("/user/reviewer");
     } catch (err) {
       console.log(err);
@@ -168,7 +197,12 @@ module.exports = {
   getPapers: async (req, res) => {
     try {
       const papers = await Paper.find();
-      let filteredPapers = papers.filter(paper => req.user.subjects.includes(covertToCamelCase(paper.discipline.toLowerCase())))
+      console.log("------------- Papers Available for Review --------------")
+      console.log(papers);
+      let filteredPapers = papers.filter(paper => req.user.subjects.includes(covertToCamelCase(paper.discipline.toLowerCase())) && paper.reviews.length < paper.reviewsRequested )
+      console.log(papers[0].reviews.length)
+      console.log(papers[0].reviewsRequested);
+      console.log(filteredPapers);
       res.render("papers.ejs", { user: req.user, papers: filteredPapers, title: "- Available Papers" });
     } catch (err) {
       console.log(err);
