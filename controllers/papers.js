@@ -161,11 +161,15 @@ module.exports = {
   },
   submitReview: async (req, res) => {
     try {
+      console.log("=------------- Step 1 -------------------------")
       // Upload pdf to cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
+
+      console.log("=------------- Step 2 -------------------------")
       //media is stored on cloudainary - the above request responds with url to media and the media id that will be needed when deleting content 
       let paper = await Paper.findOne({ manuscriptNumber: req.params.manuscriptNumber })
       let reviewCount = 1;
+      console.log("=------------- Step 3 -------------------------")
       paper.reviews.forEach(review => {
         if(review.reviewerID === req.user.reviewerID){
           review.reviewCompleted = Date.now();
@@ -174,6 +178,7 @@ module.exports = {
         } 
         if(review.Completed) reviewCount++
       })
+      console.log("=------------- Step 4 -------------------------")
       console.log(`Review Count ${reviewCount}`)
       console.log(`Reviews Requested ${paper.reviewsRequested}`);
       if(reviewCount == paper.reviewsRequested) {
@@ -182,6 +187,7 @@ module.exports = {
       }
       paper.markModified('reviews')
       paper.save()
+      console.log("=------------- Step 5 -------------------------")
       res.redirect("/user/reviewer");
     } catch (err) {
       console.log(err);
