@@ -171,7 +171,7 @@ module.exports = {
           review.reviewCompleted = Date.now();
           review.document = result.secure_url;
           review.cloudinaryID = result.public_id;
-        }
+        } 
         if(review.Completed) reviewCount++
       })
       console.log(`Review Count ${reviewCount}`)
