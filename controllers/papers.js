@@ -62,7 +62,9 @@ module.exports = {
   createPaper: async (req, res) => {
     try {
       // Upload image to cloudinary
+      console.log("***************** Check 0 ****************")
       const result = await cloudinary.uploader.upload(req.file.path);
+      console.log("***************** Check 0.5 ****************")
       await PaperCounter.findOneAndUpdate(
               { title: "counter"},
               {
