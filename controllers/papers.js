@@ -67,9 +67,9 @@ module.exports = {
       console.log(`${process.env.API_KEY} : ${typeof process.env.API_KEY} : Environmental Variable`)
       console.log(`'341219585238167' : ${typeof '341219585238167'} : Hard coded`)
       console.log(`${test} : ${typeof test} : Variable`)
-      console.log(`Do they match: ${process.env.API_KEY === '341219585238167' ? "Yes" : "No"}`)
-      console.log(`Do they match: ${process.env.API_KEY == '341219585238167' ? "Yes" : "No"}`)
-      console.log(`Do they match: ${process.env.API_KEY == test ? "Yes" : "No"}`)
+      console.log(`Is process.env.API_KEY === '341219585238167': ${process.env.API_KEY === '341219585238167' ? "Yes" : "No"}`)
+      console.log(`Is process.env.API_KEY ==  '341219585238167': ${process.env.API_KEY ==  '341219585238167' ? "Yes" : "No"}`)
+      console.log(`is process.env.API_KEY == a variable declared as '341219585238167': ${process.env.API_KEY == test ? "Yes" : "No"}`)
       const result = await cloudinary.uploader.upload(req.file.path);
       console.log("***************** Check 0.5 ****************")
       await PaperCounter.findOneAndUpdate(
