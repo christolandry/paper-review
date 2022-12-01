@@ -63,7 +63,8 @@ module.exports = {
     try {
       // Upload image to cloudinary
       console.log("***************** Check 0 ****************")
-      console.log(`Environmental Variable Key Check: ${process.env.API_KEY}`)
+      console.log(`${process.env.API_KEY} : Environmental Variable`)
+      console.log(`'341219585238167 : Hard coded')
       console.log(`Do they match: ${process.env.API_KEY === '341219585238167' ? "Yes" : "No"}`)
       console.log(`Do they match: ${process.env.API_KEY == '341219585238167' ? "Yes" : "No"}`)
       const result = await cloudinary.uploader.upload(req.file.path);
