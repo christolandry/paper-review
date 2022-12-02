@@ -17,10 +17,16 @@ module.exports = {
   getAuthor: async (req, res) => {
     try {
       const papers = await Paper.find({ author: req.user.id });
+      // console.log(papers)
       const submitted = papers.length
       const papersReviewed = papers.filter(i => i.status === "Review Complete")
       const reviews = papersReviewed.length
       const papersInProgress = papers.filter(i => i.status !== "Review Complete")
+      console.log("-------------------------")
+      console.log("-------------------------")
+      console.log("-------------------------")
+      // console.log(papersInProgress)
+      console.log(`Papers In Progress Length: ${papersInProgress.length}`)
       //Sending post data from mongodb and user data to ejs template
       res.render("author.ejs", { papersInProgress: papersInProgress, papersReviewed: papersReviewed, user: req.user, submitted: submitted, title: "- As Author" });
     } catch (err) {
