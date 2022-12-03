@@ -19,14 +19,22 @@ module.exports = {
       const papers = await Paper.find({ author: req.user.id });
       // console.log(papers)
       const submitted = papers.length
-      const papersReviewed = papers.filter(i => i.status === "Review Complete")
+      const papersReviewed = papers.filter(paper => {
+        if(paper.status === "Review Complete") return true
+        if(paper.reviews.length){
+          for(let review = 0; review < paper.reviews.length; review++){
+            if(paper.reviews[review].reviewCompleted) return true
+          }
+        }
+        return false
+      })
       const reviews = papersReviewed.length
       const papersInProgress = papers.filter(i => i.status !== "Review Complete")
-      console.log("-------------------------")
-      console.log("-------------------------")
-      console.log("-------------------------")
+      // console.log("-------------------------")
+      // console.log("-------------------------")
+      // console.log("-------------------------")
       // console.log(papersInProgress)
-      console.log(`Papers In Progress Length: ${papersInProgress.length}`)
+      // console.log(`Papers In Progress Length: ${papersInProgress.length}`)
       //Sending post data from mongodb and user data to ejs template
       res.render("author.ejs", { papersInProgress: papersInProgress, papersReviewed: papersReviewed, user: req.user, submitted: submitted, title: "- As Author" });
     } catch (err) {

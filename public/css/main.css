@@ -4605,3 +4605,9 @@ table tbody td{
 .submitInput{
 	width: 15em;
 }
+
+/* ------------- Modified by Christo Landry ------------- */
+
+.upper-margin{
+	margin-top: 20px;
+}
