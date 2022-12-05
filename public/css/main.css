@@ -4611,3 +4611,8 @@ table tbody td{
 .upper-margin{
 	margin-top: 20px;
 }
+
+table.vertical-border td{
+  border-left: 1px solid rgba(144,144,144,0.3);
+  border-right: 1px solid rgba(144,144,144,0.3);
+}
