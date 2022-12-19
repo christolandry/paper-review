@@ -12,7 +12,7 @@
 		<div class="wrapper">
 			<div class="inner">
 				<!-- Banner -->
-					<h2 id="elements">As Author</h2>
+					<h2 id="elements" class="centerElement">As Author</h2>
 					<div class="row gtr-200">
 						<div class="col-6 col-12-small">
 							<a href="/papers/submit" class="button primary large">Submit A Paper</a>
@@ -38,12 +38,10 @@
 								</tr>
 							</thead>
 							<tbody>
-								<% console.log("*++++++++++++++++++++++++++++++++*") %>
 								<% for(let i=0; i<papersInProgress.length; i++) {%>
 									<% if(papersInProgress[i].reviews.length) { %>
 										<% for(let j=0; j<papersInProgress[i].reviewsRequested; j++) { %>
 											<% if(!papersInProgress[i].reviews[j] || !papersInProgress[i].reviews[j].document) { %>
-												<% console.log(`${papersInProgress[i].title}: ${j}/${papersInProgress[i].reviewsRequested}`) %>
 												<tr>
 													<td><%= papersInProgress[i].manuscriptNumber %></td>
 													<td><a href="<%= papersInProgress[i].document %>" target="_blank"><%= papersInProgress[i].title %></a></td>
@@ -78,28 +76,10 @@
 							</tbody>
 						</table>
 					</div>
-				<!-- Life Time Stats -->
-					<h4>Lifetime Stats</h4>
-					<div class="table-wrapper">
-						<table>
-							<thead>
-								<tr>
-									<th>Paper Submitted</th>
-									<th>Reviews Received</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><%= submitted %></td>
-									<td>To Do</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
 				<!-- Completed Reviews -->
 					<h4>Completed Reviews</h4>
 					<div class="table-wrapper">
-						<table>
+						<table class="vertical-border">
 							<thead>
 								<tr>
 									<th>Manuscript Number</th>
@@ -115,9 +95,11 @@
 								</tr>
 							</thead>
 							<tbody>
+								<% let numberOfReviews = 0 %>
 								<% for(var i=0; i<papersReviewed.length; i++) {%>
 									<% for(var j=0; j<papersReviewed[i].reviews.length; j++) {%>
 										<% if(papersReviewed[i].reviews[j].reviewCompleted) {%>
+											<% numberOfReviews++ %>
 											<% let reviewAccepted = new Date(papersReviewed[i].reviews[j].reviewAccepted) %>
 											<% let reviewCompleted = new Date(papersReviewed[i].reviews[j].reviewCompleted) %>
 											<tr>
@@ -138,6 +120,24 @@
 							</tbody>
 						</table>
 					</div>
+				</div>
+				<!-- Life Time Stats -->
+				<h4>Lifetime Stats</h4>
+				<div class="table-wrapper">
+					<table class="vertical-border">
+						<thead>
+							<tr>
+								<th>Paper Submitted</th>
+								<th>Reviews Received</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><%= submitted %></td>
+								<td><%= numberOfReviews %></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 	</article>

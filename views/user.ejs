@@ -24,7 +24,7 @@
 								
 							<!-- Table of Auther Documents -->
 								<div class="table-wrapper">
-									<table>
+									<table class="vertical-border">
 										<thead>
 											<tr>
 												<th>Manuscript Number</th>
@@ -69,7 +69,7 @@
 						
 							<!-- Table of Auther Documents -->	
 								<div class="table-wrapper">
-									<table>
+									<table class="vertical-border">
 										<thead>
 											<tr>
 												<th>Manuscript Number</th>
@@ -83,7 +83,7 @@
 											<% console.log(user) %>
 											<% for(let i=0; i<papersUnderReview.length; i++) {%>
 												<% for(let j=0; j<papersUnderReview[i].reviews.length; j++) {%>
-													<% if(true) {%>
+													<% if(user.reviewerID === papersUnderReview[i].reviews[j].reviewerID) {%>
 														<% let reviewAccepted = new Date(papersUnderReview[i].reviews[j].reviewAccepted) %>
 														<tr>
 															<td><%= papersUnderReview[i].manuscriptNumber %></td>

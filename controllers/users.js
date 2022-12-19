@@ -7,6 +7,11 @@ module.exports = {
       //Grabbing just the papers of the logged-in user
       const papersSubmited = await Paper.find({ author: req.user.id });
       const papersUnderReview = await Paper.find({ reviews: {$elemMatch: {reviewerID: req.user.reviewerID}}})
+      console.log("++++++++++++++++++++++++++++++++++++++++++++")
+      console.log("++++++++++++++++++++++++++++++++++++++++++++")
+      console.log(papersUnderReview)
+      console.log("++++++++++++++++++++++++++++++++++++++++++++")
+      console.log("++++++++++++++++++++++++++++++++++++++++++++")
       //Sending post data from mongodb and user data to ejs template
       res.render("user.ejs", { papersSubmited: papersSubmited, papersUnderReview: papersUnderReview, user: req.user, title: "- Overview" });
       
