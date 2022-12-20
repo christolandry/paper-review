@@ -37,9 +37,9 @@
 										<tbody>
 											<% for(var i=0; i<papersSubmited.length; i++) {%>
 												<tr>
-													<td><%= papersSubmited[i].manuscriptNumber %></td>
+													<td class="centerElement"><%= papersSubmited[i].manuscriptNumber %></td>
 													<td><%= papersSubmited[i].status %></td>
-													<td>
+													<td class="centerElement">
 														<% if(papersSubmited[i].reviewCompleted) { %> 
 															<%= papersSubmited[i].reviewCompleted.toLocaleDateString('en-us') %> 
 														<% } else if(papersSubmited[i].reviewAccepted) {%>
@@ -86,12 +86,12 @@
 													<% if(user.reviewerID === papersUnderReview[i].reviews[j].reviewerID) {%>
 														<% let reviewAccepted = new Date(papersUnderReview[i].reviews[j].reviewAccepted) %>
 														<tr>
-															<td><%= papersUnderReview[i].manuscriptNumber %></td>
+															<td class="centerElement"><%= papersUnderReview[i].manuscriptNumber %></td>
 															<td><%= papersUnderReview[i].status %></td>
 															<td><%= papersUnderReview[i].discipline %></td>
 															<td><a href="<%= papersUnderReview[i].reviews[j].document %>"><%= papersUnderReview[i].title %></a></td>
 															<% reviewAccepted = new Date(reviewAccepted.setDate(reviewAccepted.getDate() + 7)) %>
-															<td><%= reviewAccepted.toLocaleDateString('en-us') %></td>
+															<td class="centerElement"><%= reviewAccepted.toLocaleDateString('en-us') %></td>
 														</tr>
 													<% } %>
 												<% } %>

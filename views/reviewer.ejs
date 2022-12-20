@@ -41,11 +41,11 @@
 									<% let reviewAccepted = new Date(papersUnderReview[i].reviews[reviewLookupUnderReview[i]].reviewAccepted) %>
 									<tr>
 										<td><a href="<%= papersUnderReview[i].document %>" target="_blank"><%= papersUnderReview[i].title %></a></td>
-										<td><%= reviewAccepted.toLocaleDateString('en-us') %></td>
-										<td><%= Math.floor((reviewAccepted - Date.now()) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
+										<td class="centerElement"><%= reviewAccepted.toLocaleDateString('en-us') %></td>
+										<td class="centerElement"><%= Math.floor((reviewAccepted - Date.now()) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
 										<% reviewAccepted = new Date(reviewAccepted.setDate(reviewAccepted.getDate() + 7)) %>
 										<td><%= reviewAccepted.toLocaleDateString('en-us') %></td>
-										<td>Download</td>
+										<td class="centerElement">Download</td>
 										<td>
 											<form action="/papers/submitReview/<%= papersUnderReview[i].manuscriptNumber %>" enctype="multipart/form-data" method="POST" class="tableForm flex">
 												<input type="submit" value="Submit" class="submitMinor"/>
@@ -101,10 +101,10 @@
 									<tr>
 										<td><%= papersReviewed[i].discipline %></td>
 										<td><%= papersReviewed[i].title %></td>
-										<td><%= reviewedAccepted.toLocaleDateString('en-us') %></td>
-										<td><%= reviewedCompleted.toLocaleDateString('en-us') %></td>
-										<td><%= Math.floor((reviewedAccepted - reviewedCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
-										<td><a href="<%= papersReviewed[i].documentReview %>">Review</a></td>
+										<td class="centerElement"><%= reviewedAccepted.toLocaleDateString('en-us') %></td>
+										<td class="centerElement"><%= reviewedCompleted.toLocaleDateString('en-us') %></td>
+										<td class="centerElement"><%= Math.floor((reviewedAccepted - reviewedCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
+										<td class="centerElement"><a href="<%= papersReviewed[i].documentReview %>">Review</a></td>
 										<td>To Do</td>
 										<td><% papersReviewed[i].reviews[reviewLookupReviewed[i]].reviewRating %></td>
 									</tr>

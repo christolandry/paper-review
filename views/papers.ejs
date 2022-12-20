@@ -39,11 +39,11 @@
 							<tbody>
 								<% for(var i=0; i<papers.length; i++) {%>
 									<tr>
-										<td><%= papers[i].manuscriptNumber %></td>
+										<td class="centerElement"><%= papers[i].manuscriptNumber %></td>
 										<td><%= papers[i].title %></td>
 										<td><%= papers[i].discipline %></td>
-										<td><%= papers[i].createdAt.toLocaleDateString('en-us') %></td>
-										<td><a href="/papers/paper/<%= papers[i].manuscriptNumber %>">Review</a>
+										<td class="centerElement"><%= papers[i].createdAt.toLocaleDateString('en-us') %></td>
+										<td class="centerElement"><a href="/papers/paper/<%= papers[i].manuscriptNumber %>">Review</a>
 										</td>
 									</tr>
 									<% } %>

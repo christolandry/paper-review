@@ -43,18 +43,18 @@
 										<% for(let j=0; j<papersInProgress[i].reviewsRequested; j++) { %>
 											<% if(!papersInProgress[i].reviews[j] || !papersInProgress[i].reviews[j].document) { %>
 												<tr>
-													<td><%= papersInProgress[i].manuscriptNumber %></td>
+													<td class="centerElement"><%= papersInProgress[i].manuscriptNumber %></td>
 													<td><a href="<%= papersInProgress[i].document %>" target="_blank"><%= papersInProgress[i].title %></a></td>
-													<td><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
+													<td class="centerElement"><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
 													<% if(j < papersInProgress[i].reviews.length) { %>
 														<% let reviewAccepted = new Date(papersInProgress[i].reviews[j].reviewAccepted) %>
 														<td><%= papersInProgress[i].status %></td>
-														<td><%= `${j + 1} / ${papersInProgress[i].reviewsRequested}` %></td>
-														<td><%= reviewAccepted ? reviewAccepted.toLocaleDateString('en-us') : '' %></td>
-														<td><%= papersInProgress[i].reviews[j].reviewerID ? papersInProgress[i].reviews[j].reviewerID : '' %></td>
+														<td class="centerElement"><%= `${j + 1} / ${papersInProgress[i].reviewsRequested}` %></td>
+														<td class="centerElement"><%= reviewAccepted ? reviewAccepted.toLocaleDateString('en-us') : '' %></td>
+														<td class="centerElement"><%= papersInProgress[i].reviews[j].reviewerID ? papersInProgress[i].reviews[j].reviewerID : '' %></td>
 													<% } else {%>
 														<td>Awaiting Reviewer</td>
-														<td><%= `${j + 1} / ${papersInProgress[i].reviewsRequested}` %></td>
+														<td class="centerElement"><%= `${j + 1} / ${papersInProgress[i].reviewsRequested}` %></td>
 														<td></td>
 														<td></td>
 													<% } %>
@@ -63,9 +63,9 @@
 										<% } %>
 									<% } else { %>
 										<tr>
-											<td><%= papersInProgress[i].manuscriptNumber %></td>
+											<td class="centerElement"><%= papersInProgress[i].manuscriptNumber %></td>
 											<td><a href="<%= papersInProgress[i].document %>" target="_blank"><%= papersInProgress[i].title %></a></td>
-											<td><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
+											<td class="centerElement"><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
 											<td><%= papersInProgress[i].status %></td>
 											<td></td>
 											<td></td>
@@ -103,42 +103,43 @@
 											<% let reviewAccepted = new Date(papersReviewed[i].reviews[j].reviewAccepted) %>
 											<% let reviewCompleted = new Date(papersReviewed[i].reviews[j].reviewCompleted) %>
 											<tr>
-												<td><%= papersReviewed[i].manuscriptNumber %></td>
+												<td class="centerElement"><%= papersReviewed[i].manuscriptNumber %></td>
 												<td><a href="<%= papersReviewed[i].reviews[j].document %>"><%= papersReviewed[i].title %></a></td>
-												<td><%= `${j + 1} / ${papersReviewed[i].reviewsRequested}` %></td>
-												<td><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
-												<td><%= reviewAccepted.toLocaleDateString('en-us') %></td>
-												<td><%= Math.floor((reviewAccepted - reviewCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</td>
-												<td><a href="<%= papersReviewed[i].reviews[j].document %>" target="_blank">Review</a></td>
-												<td><%= papersReviewed[i].reviews[j].reviewerID %></td>
-												<td>To Do</td>
-												<td>To Do</td>
+												<td class="centerElement"><%= `${j + 1} / ${papersReviewed[i].reviewsRequested}` %></td>
+												<td class="centerElement"><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
+												<td class="centerElement"><%= reviewAccepted.toLocaleDateString('en-us') %></td>
+												<td class="centerElement"><%= Math.floor((reviewAccepted - reviewCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</td>
+												<td class="centerElement"><a href="<%= papersReviewed[i].reviews[j].document %>" target="_blank">Review</a></td>
+												<td class="centerElement"><%= papersReviewed[i].reviews[j].reviewerID %></td>
+												<td class="centerElement">To Do</td>
+												<td class="centerElement">To Do</td>
 											</tr>
 										<% } %>
 									<% } %>
 								<% } %>
 							</tbody>
 						</table>
+				<!-- Life Time Stats -->
+						<h4>Lifetime Stats</h4>
+						<div class="table-wrapper">
+							<table class="vertical-border">
+								<thead>
+									<tr>
+										<th>Paper Submitted</th>
+										<th>Reviews Received</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="centerElement"><%= submitted %></td>
+										<td class="centerElement"><%= numberOfReviews %></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
-				<!-- Life Time Stats -->
-				<h4>Lifetime Stats</h4>
-				<div class="table-wrapper">
-					<table class="vertical-border">
-						<thead>
-							<tr>
-								<th>Paper Submitted</th>
-								<th>Reviews Received</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><%= submitted %></td>
-								<td><%= numberOfReviews %></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				
 			</div>
 	</article>
 
