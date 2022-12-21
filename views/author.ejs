@@ -28,48 +28,67 @@
 						<table class="vertical-border">
 							<thead>
 								<tr>
-									<th>Manuscript Number</th>
+									<!-- <th>Manuscript Number</th>
 									<th>Title</th>
 									<th>Date Submitted</th>
 									<th>Status</th>
 									<th>Review Number</th>
 									<th>Review Accepted</th>
+									<th>Reviewer ID#</th> -->
+									
+									<th>Paper</th>
+									<th>Status</th>
+									<th>Submitted</th>
+									<th>Review Accepted</th>
+									<th>Time of Review</th> <!--new-->
+									<th>Review Number</th>
 									<th>Reviewer ID#</th>
+									<th>Manuscript Number</th>
 								</tr>
 							</thead>
 							<tbody>
 								<% for(let i=0; i<papersInProgress.length; i++) {%>
+									<!-- If there are any reviews  -->
 									<% if(papersInProgress[i].reviews.length) { %>
 										<% for(let j=0; j<papersInProgress[i].reviewsRequested; j++) { %>
+											<!-- If there's no reveiw or there's no document -->
 											<% if(!papersInProgress[i].reviews[j] || !papersInProgress[i].reviews[j].document) { %>
 												<tr>
-													<td class="centerElement"><%= papersInProgress[i].manuscriptNumber %></td>
 													<td><a href="<%= papersInProgress[i].document %>" target="_blank"><%= papersInProgress[i].title %></a></td>
-													<td class="centerElement"><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
+													
+													<!-- At least one review has been assgined -->
 													<% if(j < papersInProgress[i].reviews.length) { %>
 														<% let reviewAccepted = new Date(papersInProgress[i].reviews[j].reviewAccepted) %>
 														<td><%= papersInProgress[i].status %></td>
-														<td class="centerElement"><%= `${j + 1} / ${papersInProgress[i].reviewsRequested}` %></td>
+														<td class="centerElement"><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
 														<td class="centerElement"><%= reviewAccepted ? reviewAccepted.toLocaleDateString('en-us') : '' %></td>
+														<td class="centerElement"><%= `${Math.floor(((new Date()) - reviewAccepted) / (1000 * 60 * 60 * 24))} day(s)`%></td>
+														<td class="centerElement"><%= `${j + 1} / ${papersInProgress[i].reviewsRequested}` %></td>
 														<td class="centerElement"><%= papersInProgress[i].reviews[j].reviewerID ? papersInProgress[i].reviews[j].reviewerID : '' %></td>
+													<!-- No reviews have been assigned -->
 													<% } else {%>
 														<td>Awaiting Reviewer</td>
+														<td class="centerElement"><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
+														<td></td>
+														<td></td>
 														<td class="centerElement"><%= `${j + 1} / ${papersInProgress[i].reviewsRequested}` %></td>
 														<td></td>
-														<td></td>
 													<% } %>
+													<td class="centerElement"><%= papersInProgress[i].manuscriptNumber %></td>
 												</tr>
 											<% } %>
 										<% } %>
+									<!-- There are no reviews -->
 									<% } else { %>
 										<tr>
-											<td class="centerElement"><%= papersInProgress[i].manuscriptNumber %></td>
 											<td><a href="<%= papersInProgress[i].document %>" target="_blank"><%= papersInProgress[i].title %></a></td>
-											<td class="centerElement"><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
 											<td><%= papersInProgress[i].status %></td>
+											<td class="centerElement"><%= papersInProgress[i].createdAt.toLocaleDateString('en-us') %></td>
 											<td></td>
 											<td></td>
 											<td></td>
+											<td></td>
+											<td class="centerElement"><%= papersInProgress[i].manuscriptNumber %></td>
 										</tr>
 									<% } %>
 								<% } %>
