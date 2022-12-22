@@ -39,11 +39,11 @@
 									<th>Paper</th>
 									<th>Status</th>
 									<th>Submitted</th>
-									<th>Review Accepted</th>
-									<th>Time of Review</th> <!--new-->
-									<th>Review Number</th>
+									<th>Date Accepted</th>
+									<th>Duration</th> <!--new-->
+									<th>Review</th>
 									<th>Reviewer ID#</th>
-									<th>Manuscript Number</th>
+									<th>Doc #</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -55,7 +55,6 @@
 											<% if(!papersInProgress[i].reviews[j] || !papersInProgress[i].reviews[j].document) { %>
 												<tr>
 													<td><a href="<%= papersInProgress[i].document %>" target="_blank"><%= papersInProgress[i].title %></a></td>
-													
 													<!-- At least one review has been assgined -->
 													<% if(j < papersInProgress[i].reviews.length) { %>
 														<% let reviewAccepted = new Date(papersInProgress[i].reviews[j].reviewAccepted) %>
@@ -101,7 +100,7 @@
 						<table class="vertical-border">
 							<thead>
 								<tr>
-									<th>Manuscript Number</th>
+									<!-- <th>Manuscript Number</th>
 									<th>Article Title</th>
 									<th>Review Number</th>
 									<th>Submitted</th>
@@ -110,7 +109,17 @@
 									<th>Review</th>
 									<th>Reviewer ID#</th>
 									<th>Reviewer's Rating</th>
-									<th>Author Rates Review</th>
+									<th>Author Rates Review</th> -->
+									
+									1<th>Paper</th>
+									2<th>Review</th>
+									3<th>Submitted</th>
+									4<th>Reviewed</th>
+									5<th>Time of Review</th>
+									6<th>Review Number</th>
+									7<th>Reviewer ID#</th>
+									8<th>Reviewer's Rating</th>
+									9<th>Author Rates Review</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -122,14 +131,13 @@
 											<% let reviewAccepted = new Date(papersReviewed[i].reviews[j].reviewAccepted) %>
 											<% let reviewCompleted = new Date(papersReviewed[i].reviews[j].reviewCompleted) %>
 											<tr>
-												<td class="centerElement"><%= papersReviewed[i].manuscriptNumber %></td>
-												<td><a href="<%= papersReviewed[i].reviews[j].document %>"><%= papersReviewed[i].title %></a></td>
-												<td class="centerElement"><%= `${j + 1} / ${papersReviewed[i].reviewsRequested}` %></td>
-												<td class="centerElement"><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
-												<td class="centerElement"><%= reviewAccepted.toLocaleDateString('en-us') %></td>
-												<td class="centerElement"><%= Math.floor((reviewAccepted - reviewCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</td>
-												<td class="centerElement"><a href="<%= papersReviewed[i].reviews[j].document %>" target="_blank">Review</a></td>
-												<td class="centerElement"><%= papersReviewed[i].reviews[j].reviewerID %></td>
+												1<td><a href="<%= papersReviewed[i].reviews[j].document %>"><%= papersReviewed[i].title %></a></td>
+												2<td class="centerElement"><a href="<%= papersReviewed[i].reviews[j].document %>" target="_blank">Review</a></td>
+												3<td class="centerElement"><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
+												4<td><%= reviewCompleted.toLocaleDateString('en-us') %></td>
+												5<td class="centerElement"><%= Math.floor((reviewAccepted - reviewCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</td>
+												6<td class="centerElement"><%= `${j + 1} / ${papersReviewed[i].reviewsRequested}` %></td>
+												7<td class="centerElement"><%= papersReviewed[i].reviews[j].reviewerID %></td>
 												<td class="centerElement">To Do</td>
 												<td class="centerElement">To Do</td>
 											</tr>
@@ -141,7 +149,7 @@
 				<!-- Life Time Stats -->
 						<h4>Lifetime Stats</h4>
 						<div class="table-wrapper">
-							<table class="vertical-border">
+							<table class="vertical-border skinny">
 								<thead>
 									<tr>
 										<th>Paper Submitted</th>

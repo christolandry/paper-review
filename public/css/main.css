@@ -4632,3 +4632,7 @@ table.vertical-border td{
 .centerElement{
 	text-align: center;
 }
+
+.skinny{
+	max-width: 400px;
+}
