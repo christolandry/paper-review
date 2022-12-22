@@ -12,45 +12,93 @@
 		<div class="wrapper">
 			<div class="inner">
 				<!-- Elements -->
-					<div class="row gtr-200">
+					<div class="row">
 						<div class="col-6 col-12-medium">
 							
 							<!-- Banner -->
 								<header>
 									<h2><a href="/user/author">As Author</a></h2>
-									<p>Information regarding your paper submissions</p>
+									<div class="row gtr-200">
+										<div class="col-6 ">
+											<a href="/papers/submit" class="button primary ">Submit A Paper</a>
+										</div>
+										<div class="col-6 ">
+											<a href="/user/author" class="button ">Author Page</a>
+										</div>
+									</div>
 								</header>
-								<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
 								
-							<!-- Table of Auther Documents -->
+								</br>
+							<!-- Author Stats -->
+								<h3>Lifetime Stats</h3>
+								<div class="table-wrapper">
+									<table class="vertical-border centerElement">
+										<tbody>
+											<tr>
+												<td class="BG-green">Months Saved</td>
+												<td>39</td>
+											</tr>
+											<tr>
+												<td class="BG-tan">Papers Submitted</td>
+												<td class="BG-tan">Reviews Received</td>
+											</tr>
+											<tr>
+												<td>6</td>
+												<td>13</td>
+											</tr>
+											<tr>
+												<td class="BG-tan">Avg Time of Review</td>
+												<td class="BG-tan"></td>
+											</tr>
+											<tr>
+												<td>2.2 Day(s)</td>
+												<td></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								
+
+							<!-- Table of Author Documents -->
+								<h3>In Progress Dashboard</h3>
 								<div class="table-wrapper">
 									<table class="vertical-border">
 										<thead>
 											<tr>
-												<th>Manuscript Number</th>
+												<th>Paper</th>
 												<th>Status</th>
-												<th>Date of Last Change</th>
-												<th>Article Type</th>
-												<th>Article Title</th>
+												<th>Reviewer ID</th>
+												<th>Review Due</th>
 											</tr>
 										</thead>
 										<tbody>
 											<% for(var i=0; i<papersSubmited.length; i++) {%>
-												<tr>
-													<td class="centerElement"><%= papersSubmited[i].manuscriptNumber %></td>
-													<td><%= papersSubmited[i].status %></td>
-													<td class="centerElement">
-														<% if(papersSubmited[i].reviewCompleted) { %> 
-															<%= papersSubmited[i].reviewCompleted.toLocaleDateString('en-us') %> 
-														<% } else if(papersSubmited[i].reviewAccepted) {%>
-															<%= papersSubmited[i].reviewAccepted.toLocaleDateString('en-us') %> 
-														<% } else {%>
-															<%= papersSubmited[i].createdAt.toLocaleDateString('en-us') %> 
-														<% } %>
-													</td>
-													<td><%= papersSubmited[i].discipline %></td>
-													<td><a href="<%= papersSubmited[i].document %>"><%= papersSubmited[i].title %></a></td>
-												</tr>
+												<!-- If the paper has no reviewers yet -->
+												<% if(papersSubmited[i].status === "Awaiting Reviewer") { %>
+													<tr>
+														<td><a href="<%= papersSubmited[i].document %>"><%= papersSubmited[i].title %></a></td>
+														<td>Awaiting Reviewer</td>
+														<td></td>
+														<td></td>
+													</tr>
+												<% } else if(papersSubmited[i].status === "Under Review"){ %>
+													<% for(var j=0; j<papersSubmited[i].reviews.length; j++) { %>	
+														<tr>
+															<td><a href="<%= papersSubmited[i].document %>"><%= papersSubmited[i].title %></a></td>
+															<td><%= papersSubmited[i].reviews[j].document ? "Completed" : "Under Review" %></td>
+															<td class="centerElement"><%= papersSubmited[i].reviews[j].reviewerID %></td>
+															<td class="centerElement"><%= new Date(papersSubmited[i].reviews[j].reviewAccepted + 1000*60*60*24*7).toLocaleDateString('en-us') %></td>
+														</tr>
+													<% } %>
+													<% if(papersSubmited[i].reviews.length < papersSubmited[i].reviewsRequested) { %>
+														<tr>
+															<td><a href="<%= papersSubmited[i].document %>"><%= papersSubmited[i].title %></a></td>
+															<td>Awaiting Reviewer</td>
+															<td></td>
+															<td></td>
+														</tr>
+													<% } %>					
+												<% } %>			
 											<% } %>
 										</tbody>
 										
@@ -63,35 +111,74 @@
 							<!-- Banner -->
 								<header>
 									<h2><a href="/user/reviewer">As Reviewer</a></h2>
-									<p>Information regarding the paper's you have reviewed</p>
-								</header>
-								<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-						
+									<div class="row gtr-200">
+										<div class="col-6 ">
+											<a href="/papers" class="button primary ">Review A Paper</a>
+										</div>
+										<div class="col-6 ">
+											<a href="/user/reviewer" class="button ">Reviewer Page</a>
+										</div>
+									</div>
+								</header>								
+								</br>
+
+							<!-- Reviewer Stats -->
+								<h3>Lifetime Stats</h3>
+								<div class="table-wrapper">
+									<table class="vertical-border centerElement">
+										<tbody>
+											<tr>
+												<td class="BG-green">Lifetime Earnings</td>
+												<td>$1,050</td>
+											</tr>
+											<tr>
+												<td class="BG-tan">Reviews Completed</td>
+												<td class="BG-tan">Avg Time of Review</td>
+											</tr>
+											<tr>
+												<td>51</td>
+												<td>2.3 Day(s)</td>
+											</tr>
+											<tr>
+												<td class="BG-tan">Invitations</td>
+												<td class="BG-tan">Rating</td>
+											</tr>
+											<tr>
+												<td>507</td>
+												<td>4.7 / 5</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 							<!-- Table of Auther Documents -->	
+								<h3>In Progress Dashboard</h3>
 								<div class="table-wrapper">
 									<table class="vertical-border">
 										<thead>
 											<tr>
-												<th>Manuscript Number</th>
-												<th>Current Status</th>
-												<th>Discipline</th>
-												<th>Title</th>
-												<th>Date Review Due</th>
+												<th>Paper</th>
+												<th>Review Due</th>
+												<th>Template</th>
+												<th>Submit Review</th>
 											</tr>
 										</thead>
 										<tbody>
 											<% console.log(user) %>
 											<% for(let i=0; i<papersUnderReview.length; i++) {%>
 												<% for(let j=0; j<papersUnderReview[i].reviews.length; j++) {%>
-													<% if(user.reviewerID === papersUnderReview[i].reviews[j].reviewerID) {%>
+													<% if(user.reviewerID === papersUnderReview[i].reviews[j].reviewerID && !papersUnderReview[i].reviews[j].document) {%>
 														<% let reviewAccepted = new Date(papersUnderReview[i].reviews[j].reviewAccepted) %>
+														<% reviewDue = new Date(reviewAccepted.setDate(reviewAccepted.getDate() + 7)) %>
 														<tr>
 															<td class="centerElement"><%= papersUnderReview[i].manuscriptNumber %></td>
-															<td><%= papersUnderReview[i].status %></td>
-															<td><%= papersUnderReview[i].discipline %></td>
-															<td><a href="<%= papersUnderReview[i].reviews[j].document %>"><%= papersUnderReview[i].title %></a></td>
-															<% reviewAccepted = new Date(reviewAccepted.setDate(reviewAccepted.getDate() + 7)) %>
-															<td class="centerElement"><%= reviewAccepted.toLocaleDateString('en-us') %></td>
+															<td class="centerElement"><%= reviewDue.toLocaleDateString('en-us') %></td>
+															<td>To Do</td>
+															<td>
+																<form action="/papers/submitReview/<%= papersUnderReview[i].manuscriptNumber %>" enctype="multipart/form-data" method="POST" class="tableForm flex">
+																	<input type="submit" value="Submit" class="submitMinor"/>
+																	<input type="file" id="imageUpload" name="file" class="submitInput">
+																</form>
+															</td>
 														</tr>
 													<% } %>
 												<% } %>
