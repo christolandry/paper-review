@@ -41,7 +41,7 @@
 									<tr>
 										<td><%= papers[i].title %></td>
 										<td><%= papers[i].discipline %></td>
-										<td class="centerElement"><%= papers[i].keywords %></td>
+										<td class="centerElement"><%= papers[i].keywords.join(", ") %></td>
 										<td class="centerElement"><%= papers[i].createdAt.toLocaleDateString('en-us') %></td>
 										<td class="centerElement"><a href="/papers/paper/<%= papers[i].manuscriptNumber %>">Review</a>
 										</td>
