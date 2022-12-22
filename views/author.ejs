@@ -111,15 +111,15 @@
 									<th>Reviewer's Rating</th>
 									<th>Author Rates Review</th> -->
 									
-									1<th>Paper</th>
-									2<th>Review</th>
-									3<th>Submitted</th>
-									4<th>Reviewed</th>
-									5<th>Time of Review</th>
-									6<th>Review Number</th>
-									7<th>Reviewer ID#</th>
-									8<th>Reviewer's Rating</th>
-									9<th>Author Rates Review</th>
+									<th>Paper</th>
+									<th>Review</th>
+									<th>Submitted</th>
+									<th>Reviewed</th>
+									<th>Time of Review</th>
+									<th>Review Number</th>
+									<th>Reviewer ID#</th>
+									<th>Reviewer's Rating</th>
+									<th>Author Rates Review</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -131,13 +131,13 @@
 											<% let reviewAccepted = new Date(papersReviewed[i].reviews[j].reviewAccepted) %>
 											<% let reviewCompleted = new Date(papersReviewed[i].reviews[j].reviewCompleted) %>
 											<tr>
-												1<td><a href="<%= papersReviewed[i].reviews[j].document %>"><%= papersReviewed[i].title %></a></td>
-												2<td class="centerElement"><a href="<%= papersReviewed[i].reviews[j].document %>" target="_blank">Review</a></td>
-												3<td class="centerElement"><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
-												4<td><%= reviewCompleted.toLocaleDateString('en-us') %></td>
-												5<td class="centerElement"><%= Math.floor((reviewAccepted - reviewCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</td>
-												6<td class="centerElement"><%= `${j + 1} / ${papersReviewed[i].reviewsRequested}` %></td>
-												7<td class="centerElement"><%= papersReviewed[i].reviews[j].reviewerID %></td>
+												<td><a href="<%= papersReviewed[i].reviews[j].document %>"><%= papersReviewed[i].title %></a></td>
+												<td class="centerElement"><a href="<%= papersReviewed[i].reviews[j].document %>" target="_blank">Review</a></td>
+												<td class="centerElement"><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
+												<td><%= reviewCompleted.toLocaleDateString('en-us') %></td>
+												<td class="centerElement"><%= Math.floor((reviewAccepted - reviewCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</td>
+												<td class="centerElement"><%= `${j + 1} / ${papersReviewed[i].reviewsRequested}` %></td>
+												<td class="centerElement"><%= papersReviewed[i].reviews[j].reviewerID %></td>
 												<td class="centerElement">To Do</td>
 												<td class="centerElement">To Do</td>
 											</tr>

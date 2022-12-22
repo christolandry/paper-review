@@ -29,11 +29,11 @@
 						<table class="vertical-border">
 							<thead>
 								<tr>
-									<th>Paper</th>
-									<th>Discipline</th>
-									<th>Manuscript no.</th>
-									<th>Date Submitted</th>
-									<th>Review Document</th>
+									<th class="centerElement">Paper</th>
+									<th class="centerElement">Discipline</th>
+									<th class="centerElement">Key Words</th>
+									<th class="centerElement">Date Submitted</th>
+									<th class="centerElement"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -41,7 +41,7 @@
 									<tr>
 										<td><%= papers[i].title %></td>
 										<td><%= papers[i].discipline %></td>
-										<td class="centerElement"><%= papers[i].manuscriptNumber %></td>
+										<td class="centerElement"><%= papers[i].keywords %></td>
 										<td class="centerElement"><%= papers[i].createdAt.toLocaleDateString('en-us') %></td>
 										<td class="centerElement"><a href="/papers/paper/<%= papers[i].manuscriptNumber %>">Review</a>
 										</td>

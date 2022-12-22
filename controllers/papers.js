@@ -62,14 +62,7 @@ module.exports = {
   createPaper: async (req, res) => {
     try {
       // Upload image to cloudinary
-      let test = '341219585238167'
       console.log("***************** Check 0 ****************")
-      console.log(`${process.env.API_KEY} : ${typeof process.env.API_KEY} : Environmental Variable`)
-      console.log(`'341219585238167' : ${typeof '341219585238167'} : Hard coded`)
-      console.log(`${test} : ${typeof test} : Variable`)
-      console.log(`Is process.env.API_KEY === '341219585238167': ${process.env.API_KEY === '341219585238167' ? "Yes" : "No"}`)
-      console.log(`Is process.env.API_KEY ==  '341219585238167': ${process.env.API_KEY ==  '341219585238167' ? "Yes" : "No"}`)
-      console.log(`is process.env.API_KEY == a variable declared as '341219585238167': ${process.env.API_KEY == test ? "Yes" : "No"}`)
       const result = await cloudinary.uploader.upload(req.file.path);
       console.log("***************** Check 0.5 ****************")
       await PaperCounter.findOneAndUpdate(
@@ -118,13 +111,17 @@ module.exports = {
         if(disciplines.includes(key)) subDisciplines.push(key)
       }     
       console.log("***************** Check 3 ****************")
+      console.log("req.body.keywords")
+      console.log(req.body.keywords)
+      console.log("Formatted")
+
       await Paper.create({
         manuscriptNumber: counter.current,
         title: req.body.title,
         description: req.body.description,
         discipline: req.body.discipline,
         disciplineSub: subDisciplines,
-        keywords: req.body.keywords.split(",").forEach(word => word.trim()),
+        keywords: req.body.keywords.split(",").map(word => word.trim()),
         feedback: req.body.feedback,
         document: result.secure_url,
         cloudinaryId: result.public_id,        
