@@ -28,23 +28,29 @@
 						<table class="vertical-border">
 							<thead>
 								<tr>
-									<th>Paper</th>
+									<!-- <th>Paper</th>
 									<th>Date Accepted</th>
 									<th>Time Since Accepted</th>
 									<th>Review Due</th>
 									<th>Review Template</th>
-									<th>Submit Review</th>
+									<th>Submit Review</th> -->
+									<th>Paper</th>
+									<th>Date Accepted</th>
+									<th>Review Due</th>
+									<th>Deadline In</th>
+									<th>Review Template</th>
+									<th class="centerElement">Submit Review</th>
 								</tr>
 							</thead>
 							<tbody>
 								<% for(var i=0; i<papersUnderReview.length; i++) {%>
 									<% let reviewAccepted = new Date(papersUnderReview[i].reviews[reviewLookupUnderReview[i]].reviewAccepted) %>
+									<% let reviewDue = new Date(reviewAccepted.setDate(reviewAccepted.getDate() + 7)) %>
 									<tr>
 										<td><a href="<%= papersUnderReview[i].document %>" target="_blank"><%= papersUnderReview[i].title %></a></td>
 										<td class="centerElement"><%= reviewAccepted.toLocaleDateString('en-us') %></td>
-										<td class="centerElement"><%= Math.floor((reviewAccepted - Date.now()) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
-										<% reviewAccepted = new Date(reviewAccepted.setDate(reviewAccepted.getDate() + 7)) %>
-										<td><%= reviewAccepted.toLocaleDateString('en-us') %></td>
+										<td class="centerElement"><%= reviewDue.toLocaleDateString('en-us') %></td>
+										<td class="centerElement"><%= Math.floor((reviewDue - Date.now()) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
 										<td class="centerElement">Download</td>
 										<td>
 											<form action="/papers/submitReview/<%= papersUnderReview[i].manuscriptNumber %>" enctype="multipart/form-data" method="POST" class="tableForm flex">
@@ -85,8 +91,14 @@
 						<table class="vertical-border">
 							<thead>
 								<tr>
-									<th>Discipline</th>
+									<!-- <th>Discipline</th>
 									<th>Title</th>
+									<th>Review Accepted</th>
+									<th>Review Completed</th>
+									<th>Time of Review</th>
+									<th>Review</th>
+									<th>Author Rating</th> -->
+									<th>Paper</th>
 									<th>Review Accepted</th>
 									<th>Review Completed</th>
 									<th>Time of Review</th>
@@ -99,14 +111,12 @@
 									<% let reviewedAccepted = new Date(papersReviewed[i].reviews[reviewLookupReviewed[i]].reviewAccepted) %>
 									<% let reviewedCompleted = new Date(papersReviewed[i].reviews[reviewLookupReviewed[i]].reviewCompleted) %>
 									<tr>
-										<td><%= papersReviewed[i].discipline %></td>
 										<td><%= papersReviewed[i].title %></td>
 										<td class="centerElement"><%= reviewedAccepted.toLocaleDateString('en-us') %></td>
 										<td class="centerElement"><%= reviewedCompleted.toLocaleDateString('en-us') %></td>
 										<td class="centerElement"><%= Math.floor((reviewedAccepted - reviewedCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
 										<td class="centerElement"><a href="<%= papersReviewed[i].documentReview %>">Review</a></td>
-										<td>To Do</td>
-										<td><% papersReviewed[i].reviews[reviewLookupReviewed[i]].reviewRating %></td>
+										<td><%= papersReviewed[i].reviews[reviewLookupReviewed[i]].reviewRating %>To Do</td>
 									</tr>
 								<% } %>
 							</tbody>
