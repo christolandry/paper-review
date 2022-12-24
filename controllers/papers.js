@@ -122,7 +122,7 @@ module.exports = {
         discipline: req.body.discipline,
         disciplineSub: subDisciplines,
         keywords: req.body.keywords.split(",").map(word => word.trim()),
-        feedback: req.body.feedback,
+        feedbackRequested: req.body.feedback,
         document: result.secure_url,
         cloudinaryId: result.public_id,        
         author: req.user.id,

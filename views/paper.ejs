@@ -24,7 +24,7 @@
 
 					<hr class="major" />
 					
-					<div class="pdfWrapper">
+					<!-- <div class="pdfWrapper">
 						<embed
 							src="<%= paper.document %>"
 							type="application/pdf"
@@ -33,8 +33,18 @@
 							height="100%"
 							width="100%"
 						></embed>
-					</div>
+					</div> -->
+					<h3>Description / Abstract</h3>
+					<p><%= paper.description %></p>
 
+					<h4>Key Words</h4>
+					<p><%= paper.keywords.join(", ") ? paper.keywords.join(", ") : "None"  %></p>
+
+					<h4>Specific Feedback Requested</h4>
+					<p><%= paper.feedbackRequested ? paper.reedbackRequested : "None" %></p>
+
+					<h5>Reviews</h5>
+					<p><%= `${paper.reviews.length ? paper.reviews.length : 0} / ${paper.reviewsRequested}` %></p>
 					<hr class="major" />
 
 					<form action="/papers/review/<%= paper.manuscriptNumber %>" method="POST">
