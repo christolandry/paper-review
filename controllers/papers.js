@@ -190,6 +190,20 @@ module.exports = {
       if(reviewCount == paper.reviewsRequested) {
         paper.status = "Review Complete"
         console.log("Status changed");
+        let author = await User.findOne({ _id: paper.author});
+        let userEmail = author.emailPreferred ? author.emailPreferred : author.email
+        client.sendMail(
+          {
+            from: "paperreviewapp@gmail.com",
+            to: userEmail,
+            subject: `Paper Review - All reivews ${paper.title} have been completed`,
+            html: `
+              All the reviews you requested for your paper titled, "${paper.title}", have been completed.
+              <br>Click this <a href='https://paper-review.vercel.app/user/author'>link</a> to view the papers you have uploaded.
+            `,
+          }
+        )
+
       }
       paper.markModified('reviews')
       paper.save()
