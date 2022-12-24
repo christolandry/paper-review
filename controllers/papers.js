@@ -225,7 +225,10 @@ module.exports = {
       const papers = await Paper.find();
       console.log("------------- Papers Available for Review --------------")
       console.log(papers);
-      let filteredPapers = papers.filter(paper => req.user.subjects.includes(covertToCamelCase(paper.discipline.toLowerCase())) && paper.reviews.length < paper.reviewsRequested && req.user.id != paper.author )
+      let filteredPapers = papers.filter(paper => req.user.subjects.includes(covertToCamelCase(paper.discipline.toLowerCase())) 
+                                                  && paper.reviews.length < paper.reviewsRequested 
+                                                  && req.user.id != paper.author 
+                                                  && !paper.reviews.some(review => review.reviewerID == req.user.reviewerID))
       console.log(papers[0].reviews.length)
       console.log(papers[0].reviewsRequested);
       console.log(filteredPapers);

@@ -52,6 +52,10 @@ module.exports = {
       let papersUnderReview = await Paper.find({ reviews: {$elemMatch: {reviewerID: req.user.reviewerID, document: ""}}})
       let papersReviewed = await Paper.find({ reviews: {$elemMatch: {reviewerID: req.user.reviewerID, document: {$ne: ""}}}})
 
+      console.log("++++++++++++++++++++++++++++++++++")
+      console.log(papersReviewed)
+      console.log("++++++++++++++++++++++++++++++++++")
+      
       reviewLookupUnderReview = []
       papersUnderReview.forEach(paper => {
         paper.reviews.forEach((review, index) => {
@@ -61,7 +65,7 @@ module.exports = {
         })
       })
 
-      reviewLookupReviewed = []
+      reviewLookupReviewed = [] //which reivew for each paper is the one done by this user
       papersReviewed.forEach(paper => {
         paper.reviews.forEach((review, index) => {
           if(review.reviewerID == req.user.reviewerID){
@@ -69,6 +73,8 @@ module.exports = {
           }
         })
       })
+      console.log(reviewLookupReviewed)
+      console.log("++++++++++++++++++++++++++++++++++")
 
       res.render("reviewer.ejs", { user: req.user, title: "- As Reviewer", papersUnderReview: papersUnderReview, reviewLookupUnderReview: reviewLookupUnderReview, reviewLookupReviewed: reviewLookupReviewed, papersReviewed: papersReviewed });
     } catch (err) {
