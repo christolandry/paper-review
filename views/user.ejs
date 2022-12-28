@@ -170,7 +170,7 @@
 														<% let reviewAccepted = new Date(papersUnderReview[i].reviews[j].reviewAccepted) %>
 														<% reviewDue = new Date(reviewAccepted.setDate(reviewAccepted.getDate() + 7)) %>
 														<tr>
-															<td class="centerElement"><%= papersUnderReview[i].manuscriptNumber %></td>
+															<td class="centerElement"><%= papersUnderReview[i].title %></td>
 															<td class="centerElement"><%= reviewDue.toLocaleDateString('en-us') %></td>
 															<td>To Do</td>
 															<td>

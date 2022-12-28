@@ -225,6 +225,7 @@ module.exports = {
       const papers = await Paper.find();
       console.log("------------- Papers Available for Review --------------")
       console.log(papers);
+      //Checks are paper is the right discipline, paper needs more reviews, user isn't the author, user hasn't reviewed the paper already
       let filteredPapers = papers.filter(paper => req.user.subjects.includes(covertToCamelCase(paper.discipline.toLowerCase())) 
                                                   && paper.reviews.length < paper.reviewsRequested 
                                                   && req.user.id != paper.author 
