@@ -145,7 +145,7 @@ module.exports = {
           {
             from: "paperreviewapp@gmail.com",
             to: userEmail,
-            subject: "Paper Review - A new paper of your subject matter has been uploaded",
+            subject: `Paper Review - A paper titled, '${req.body.title}', of your subject matter has been uploaded`,
             html: `
               A new paper has been uploaded that you are able to review.
               <br>Title: ${req.body.title}
@@ -189,21 +189,21 @@ module.exports = {
       if(reviewCount == paper.reviewsRequested) {
         paper.status = "Review Complete"
         console.log("Status changed");
-        let author = await User.findOne({ _id: paper.author});
-        let userEmail = author.emailPreferred ? author.emailPreferred : author.email
-        client.sendMail(
-          {
-            from: "paperreviewapp@gmail.com",
-            to: userEmail,
-            subject: `Paper Review - All reivews ${paper.title} have been completed`,
-            html: `
-              All the reviews you requested for your paper titled, "${paper.title}", have been completed.
-              <br>Click this <a href='https://paper-review.vercel.app/user/author'>link</a> to view the papers you have uploaded.
-            `,
-          }
-        )
-
       }
+      // Email author that a paper has been uploaded
+      let author = await User.findOne({ _id: paper.author});
+      let userEmail = author.emailPreferred ? author.emailPreferred : author.email
+      client.sendMail(
+        {
+          from: "paperreviewapp@gmail.com",
+          to: userEmail,
+          subject: `Paper Review - All reivews ${paper.title} have been completed`,
+          html: `
+            All the reviews you requested for your paper titled, "${paper.title}", have been completed.
+            <br>Click this <a href='https://paper-review.vercel.app/user/author'>link</a> to view the papers you have uploaded.
+          `,
+        }
+      )
       paper.markModified('reviews')
       paper.save()
       console.log("=------------- Step 5 -------------------------")
@@ -220,6 +220,9 @@ module.exports = {
     }
   },
   getPapers: async (req, res) => {
+    if (!req.user) {
+      return res.redirect("/login");
+    }
     try {
       const papers = await Paper.find();
       console.log("------------- Papers Available for Review --------------")
