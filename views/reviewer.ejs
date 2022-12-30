@@ -28,12 +28,6 @@
 						<table class="vertical-border">
 							<thead>
 								<tr>
-									<!-- <th>Paper</th>
-									<th>Date Accepted</th>
-									<th>Time Since Accepted</th>
-									<th>Review Due</th>
-									<th>Review Template</th>
-									<th>Submit Review</th> -->
 									<th>Paper</th>
 									<th>Date Accepted</th>
 									<th>Review Due</th>
@@ -45,12 +39,13 @@
 							<tbody>
 								<% for(var i=0; i<papersUnderReview.length; i++) {%>
 									<% let reviewAccepted = new Date(papersUnderReview[i].reviews[reviewLookupUnderReview[i]].reviewAccepted) %>
-									<% let reviewDue = new Date(reviewAccepted.setDate(reviewAccepted.getDate() + 7)) %>
+									<% let reviewDue = new Date(reviewAccepted) %>
+									<% reviewDue.setDate(reviewAccepted.getDate() + 7) %>
 									<tr>
 										<td><a href="<%= papersUnderReview[i].document %>" target="_blank"><%= papersUnderReview[i].title %></a></td>
 										<td class="centerElement"><%= reviewAccepted.toLocaleDateString('en-us') %></td>
 										<td class="centerElement"><%= reviewDue.toLocaleDateString('en-us') %></td>
-										<td class="centerElement"><%= Math.floor((reviewDue - Date.now()) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
+										<td class="centerElement"><%= Math.floor((reviewDue - Date.now()) / (1000 * 60 * 60 * 24)) %> day(s)</a></td>
 										<td class="centerElement">Download</td>
 										<td>
 											<form action="/papers/submitReview/<%= papersUnderReview[i].manuscriptNumber %>" enctype="multipart/form-data" method="POST" class="tableForm flex">
@@ -91,13 +86,6 @@
 						<table class="vertical-border">
 							<thead>
 								<tr>
-									<!-- <th>Discipline</th>
-									<th>Title</th>
-									<th>Review Accepted</th>
-									<th>Review Completed</th>
-									<th>Time of Review</th>
-									<th>Review</th>
-									<th>Author Rating</th> -->
 									<th>Paper</th>
 									<th>Review Accepted</th>
 									<th>Review Completed</th>
@@ -115,7 +103,7 @@
 										<td class="centerElement"><%= reviewedAccepted.toLocaleDateString('en-us') %></td>
 										<td class="centerElement"><%= reviewedCompleted.toLocaleDateString('en-us') %></td>
 										<td class="centerElement"><%= Math.floor((reviewedAccepted - reviewedCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
-										<td class="centerElement"><a href="<%= papersReviewed[i].documentReview %>">Review</a></td>
+										<td class="centerElement"><a href="<%= papersReviewed[i].reviews[reviewLookupReviewed[i]].document %>" target="_blank">Review</a></td>
 										<td><%= papersReviewed[i].reviews[reviewLookupReviewed[i]].reviewRating %>To Do</td>
 									</tr>
 								<% } %>
@@ -125,34 +113,6 @@
 			</div>
 		</div>
 	</article>
-
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<section class="about">
-						<h4 class="major">Magna Aliquam Feugiat</h4>
-						<p>Etiam finibus pharetra purus, imperdiet sagittis mauris hendrerit vitae. In feugiat ante elementum nulla arcu. Maecenas vulputate faucibus, convallis ligula ipsum dolor feugiat tempus adipiscing.</p>
-						<ul class="actions">
-							<li><a class="button">Learn more</a></li>
-						</ul>
-					</section>
-					<section class="contact-info">
-						<h4 class="major">Get in Touch</h4>
-						<ul class="contact">
-							<li class="icon solid fa-phone">(000) 000-0000</li>
-							<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
-							<li class="icon brands fa-twitter"><a href="#">@untitled-tld</a></li>
-							<li class="icon brands fa-facebook-f"><a href="#">facebook.com/untitled</a></li>
-						</ul>
-						<ul class="contact">
-							<li class="icon solid fa-home">Untitled Corp<br />1234 Fictional Road<br />Suite 5432<br />Nashville, TN 00000<br />USA</li>
-						</ul>
-					</section>
-				</div>
-				<div class="copyright">
-					<p>&copy; Untitled Corp. All rights reserved.</p>
-				</div>
-			</footer>
 
 <!-- Footer -->
 	<%- include('partials/footer') -%>
