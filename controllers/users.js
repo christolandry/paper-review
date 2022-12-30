@@ -59,8 +59,6 @@ module.exports = {
           }
         })
       })
-      console.log(reviewLookupReviewed)
-      console.log("++++++++++++++++++++++++++++++++++")
 
       res.render("reviewer.ejs", { user: req.user, title: "- As Reviewer", papersUnderReview: papersUnderReview, reviewLookupUnderReview: reviewLookupUnderReview, reviewLookupReviewed: reviewLookupReviewed, papersReviewed: papersReviewed });
     } catch (err) {

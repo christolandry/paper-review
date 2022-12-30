@@ -150,7 +150,6 @@ module.exports = {
               A new paper has been uploaded that you are able to review.
               <br>Title: ${req.body.title}
               <br>Discipline: ${req.body.discipline}
-              <br>Sub-Discipline(s): ${subDisciplines.join(", ")}
               <br>Keywords: ${req.body.keywords}
               <br>Description: ${req.body.description}
               <br>Click this <a href='https://paper-review.vercel.app/papers'>link</a> to view all papers you can review
