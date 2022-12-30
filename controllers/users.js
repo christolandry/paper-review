@@ -7,13 +7,8 @@ module.exports = {
       //Grabbing just the papers of the logged-in user
       const papersSubmited = await Paper.find({ author: req.user.id });
       const papersUnderReview = await Paper.find({ reviews: {$elemMatch: {reviewerID: req.user.reviewerID}}})
-      console.log("++++++++++++++++++++++++++++++++++++++++++++")
-      console.log("++++++++++++++++++++++++++++++++++++++++++++")
-      console.log(papersUnderReview)
-      console.log("++++++++++++++++++++++++++++++++++++++++++++")
-      console.log("++++++++++++++++++++++++++++++++++++++++++++")
       //Sending post data from mongodb and user data to ejs template
-      res.render("user.ejs", { papersSubmited: papersSubmited, papersUnderReview: papersUnderReview, user: req.user, title: "- Overview" });
+      res.render("user.ejs", { papersSubmited: papersSubmited.reverse(), papersUnderReview: papersUnderReview.reverse(), user: req.user, title: "- Overview" });
       
     } catch (err) {
       console.log(err);
@@ -22,7 +17,6 @@ module.exports = {
   getAuthor: async (req, res) => {
     try {
       const papers = await Paper.find({ author: req.user.id });
-      // console.log(papers)
       const submitted = papers.length
       const papersReviewed = papers.filter(paper => {
         if(paper.status === "Review Complete") return true
@@ -35,13 +29,9 @@ module.exports = {
       })
       const reviews = papersReviewed.length
       const papersInProgress = papers.filter(i => i.status !== "Review Complete")
-      // console.log("-------------------------")
-      // console.log("-------------------------")
-      // console.log("-------------------------")
-      // console.log(papersInProgress)
-      // console.log(`Papers In Progress Length: ${papersInProgress.length}`)
+
       //Sending post data from mongodb and user data to ejs template
-      res.render("author.ejs", { papersInProgress: papersInProgress, papersReviewed: papersReviewed, user: req.user, submitted: submitted, title: "- As Author" });
+      res.render("author.ejs", { papersInProgress: papersInProgress.reverse(), papersReviewed: papersReviewed.reverse(), user: req.user, submitted: submitted, title: "- As Author" });
     } catch (err) {
       console.log(err);
     }
@@ -51,10 +41,6 @@ module.exports = {
 
       let papersUnderReview = await Paper.find({ reviews: {$elemMatch: {reviewerID: req.user.reviewerID, document: ""}}})
       let papersReviewed = await Paper.find({ reviews: {$elemMatch: {reviewerID: req.user.reviewerID, document: {$ne: ""}}}})
-
-      console.log("++++++++++++++++++++++++++++++++++")
-      console.log(papersReviewed)
-      console.log("++++++++++++++++++++++++++++++++++")
       
       reviewLookupUnderReview = []
       papersUnderReview.forEach(paper => {

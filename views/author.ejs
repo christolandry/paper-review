@@ -28,19 +28,11 @@
 						<table class="vertical-border">
 							<thead>
 								<tr>
-									<!-- <th>Manuscript Number</th>
-									<th>Title</th>
-									<th>Date Submitted</th>
-									<th>Status</th>
-									<th>Review Number</th>
-									<th>Review Accepted</th>
-									<th>Reviewer ID#</th> -->
-									
 									<th>Paper</th>
 									<th>Status</th>
 									<th>Submitted</th>
 									<th>Date Accepted</th>
-									<th>Duration</th> <!--new-->
+									<th>Duration</th>
 									<th>Review</th>
 									<th>Reviewer ID#</th>
 									<th>Doc #</th>
@@ -100,17 +92,6 @@
 						<table class="vertical-border">
 							<thead>
 								<tr>
-									<!-- <th>Manuscript Number</th>
-									<th>Article Title</th>
-									<th>Review Number</th>
-									<th>Submitted</th>
-									<th>Reviewed</th>
-									<th>Time of Review</th>
-									<th>Review</th>
-									<th>Reviewer ID#</th>
-									<th>Reviewer's Rating</th>
-									<th>Author Rates Review</th> -->
-									
 									<th>Paper</th>
 									<th>Review</th>
 									<th>Submitted</th>
@@ -131,7 +112,7 @@
 											<% let reviewAccepted = new Date(papersReviewed[i].reviews[j].reviewAccepted) %>
 											<% let reviewCompleted = new Date(papersReviewed[i].reviews[j].reviewCompleted) %>
 											<tr>
-												<td><a href="<%= papersReviewed[i].reviews[j].document %>"><%= papersReviewed[i].title %></a></td>
+												<td><a href="<%= papersReviewed[i].document %>"><%= papersReviewed[i].title %></a></td>
 												<td class="centerElement"><a href="<%= papersReviewed[i].reviews[j].document %>" target="_blank">Review</a></td>
 												<td class="centerElement"><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
 												<td><%= reviewCompleted.toLocaleDateString('en-us') %></td>
