@@ -30,29 +30,22 @@
 								
 								</br>
 							<!-- Author Stats -->
-								<h3>Lifetime Stats</h3>
+								<h3>Lifetime Author Stats</h3>
 								<div class="table-wrapper">
 									<table class="vertical-border centerElement">
 										<tbody>
 											<tr>
-												<td class="BG-green">Months Saved</td>
-												<td>39</td>
+												<td class="BG-tan">Reviews Received</td>
+												<td><%= numberOfReviews %></td>
+												<td class="BG-tan">Avg Time of Review</td>
+												<% let avg = reviewTime ? new Date(reviewTime) : 0 %>
+												<td><%= avg ? `${avg.getDay()} day(s)` : "-"%> </td>
 											</tr>
 											<tr>
 												<td class="BG-tan">Papers Submitted</td>
-												<td class="BG-tan">Reviews Received</td>
-											</tr>
-											<tr>
-												<td>6</td>
-												<td>13</td>
-											</tr>
-											<tr>
-												<td class="BG-tan">Avg Time of Review</td>
-												<td class="BG-tan"></td>
-											</tr>
-											<tr>
-												<td>2.2 Day(s)</td>
-												<td></td>
+												<td><%= submitted %></td>
+												<td class="BG-yellow">Months Saved</td>
+												<td><%= numberOfReviews * 3 %> month(s)</td>
 											</tr>
 										</tbody>
 									</table>
@@ -76,7 +69,7 @@
 												<!-- If the paper has no reviewers yet -->
 												<% if(papersSubmited[i].status === "Awaiting Reviewer") { %>
 													<tr>
-														<td><a href="<%= papersSubmited[i].document %>"><%= papersSubmited[i].title %></a></td>
+														<td><a href="<%= papersSubmited[i].document %>" target="_blank"><%= papersSubmited[i].title %></a></td>
 														<td>Awaiting Reviewer</td>
 														<td></td>
 														<td></td>
@@ -123,30 +116,24 @@
 								</br>
 
 							<!-- Reviewer Stats -->
-								<h3>Lifetime Stats</h3>
+								<h3>Lifetime Reviewer Stats</h3>
 								<div class="table-wrapper">
 									<table class="vertical-border centerElement">
 										<tbody>
 											<tr>
-												<td class="BG-green">Lifetime Earnings</td>
-												<td>$1,050</td>
-											</tr>
-											<tr>
 												<td class="BG-tan">Reviews Completed</td>
+												<td><%= reviewsCompleted %></td>
 												<td class="BG-tan">Avg Time of Review</td>
+												<% let avgCompleted = reviewCompleteTime ? new Date(reviewCompleteTime) : 0 %>
+												<td><%= avgCompleted ? `${avgCompleted.getDay()} day(s)` : "-" %></td>
 											</tr>
 											<tr>
-												<td>51</td>
-												<td>2.3 Day(s)</td>
-											</tr>
-											<tr>
-												<td class="BG-tan">Invitations</td>
 												<td class="BG-tan">Rating</td>
+												<td>4.7 / 5</td>
+												<td class="BG-yellow">Lifetime Earnings</td>
+												<td>$To Do</td>
 											</tr>
 											<tr>
-												<td>507</td>
-												<td>4.7 / 5</td>
-											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -163,14 +150,13 @@
 											</tr>
 										</thead>
 										<tbody>
-											<% console.log(user) %>
 											<% for(let i=0; i<papersUnderReview.length; i++) {%>
 												<% for(let j=0; j<papersUnderReview[i].reviews.length; j++) {%>
 													<% if(user.reviewerID === papersUnderReview[i].reviews[j].reviewerID && !papersUnderReview[i].reviews[j].document) {%>
 														<% let reviewAccepted = new Date(papersUnderReview[i].reviews[j].reviewAccepted) %>
 														<% reviewDue = new Date(reviewAccepted.setDate(reviewAccepted.getDate() + 7)) %>
 														<tr>
-															<td class="centerElement"><%= papersUnderReview[i].title %></td>
+															<td><a href="<%= papersUnderReview[i].document %>" target="_blank"><%= papersUnderReview[i].title %></a></td>
 															<td class="centerElement"><%= reviewDue.toLocaleDateString('en-us') %></td>
 															<td>To Do</td>
 															<td>

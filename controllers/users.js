@@ -6,9 +6,41 @@ module.exports = {
     try {
       //Grabbing just the papers of the logged-in user
       const papersSubmited = await Paper.find({ author: req.user.id });
+      const submitted = papersSubmited.length
+      let numberOfReviews = 0;
+      let reviewTime = []
+      for(let i = 0; i < papersSubmited.length; i++){
+        for(let j = 0; j < papersSubmited[i].reviews.length; j++){
+          if(papersSubmited[i].reviews[j].reviewCompleted) {
+            numberOfReviews++
+            reviewTime.push(papersSubmited[i].reviews[j].reviewCompleted - papersSubmited[i].reviews[j].reviewAccepted)
+          }
+        }
+      }
+      //Grabbing papers that have this user as one of the reviewers
       const papersUnderReview = await Paper.find({ reviews: {$elemMatch: {reviewerID: req.user.reviewerID}}})
+
+      let reviewsCompleted = 0;
+      let reviewCompleteTime = []
+      for(let i = 0; i < papersUnderReview; i++){
+        for(let j = 0; j < papersUnderReview[i].reviews.length; j++)
+          if(papersUnderReview[i].reviews[j].reviewerID === req.user.reviewerID && papersUnderReview[i].reviews[j].reviewCompleted){
+            reviewsCompleted++
+            reviewCompleteTime.push(papersUnderReview[i].reviews[j].reviewCompleted - papersUnderReview[i].reviews[j].reviewAccepted)
+          }
+      }
+
+      console.log(reviewCompleteTime)
       //Sending post data from mongodb and user data to ejs template
-      res.render("user.ejs", { papersSubmited: papersSubmited.reverse(), papersUnderReview: papersUnderReview.reverse(), user: req.user, title: "- Overview" });
+      res.render("user.ejs", { papersSubmited: papersSubmited.reverse(), 
+                               papersUnderReview: papersUnderReview.reverse(), 
+                               submitted: submitted, 
+                               numberOfReviews: numberOfReviews, 
+                               reviewTime: reviewTime.reduce((acc, cur) => acc += cur, 0)/reviewTime.length, 
+                               reviewsCompleted: reviewsCompleted,
+                               reviewCompleteTime: reviewCompleteTime.reduce((acc, cur) => acc += cur, 0)/reviewCompleteTime.length, 
+                               user: req.user, 
+                               title: "- Overview" });
       
     } catch (err) {
       console.log(err);
