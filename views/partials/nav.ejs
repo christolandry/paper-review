@@ -2,15 +2,17 @@
     <ul class="links">
         <% if(user) { %>
             <li><a href="/user">Home</a></li>
-            <li><a href="/user/author">As Author</a></li>
             <li><a href="/papers/submit">Submit a Paper</a></li>
-            <li><a href="/user/reviewer">As Reviewer</a></li>
             <li><a href="/papers">Review a Paper</a></li>
+            <li><a href="/user/author">As Author</a></li>
+            <li><a href="/user/reviewer">As Reviewer</a></li>
             <li><a href="/user/settings">Settings</a></li>
+            <li><a href="/user/faq">FAQ</a></li>
         <% } %>
         <% if(!user) { %>
             <li><a href="/">Home</a></li>
             <li><a href="/#two">Learn More</a></li>
+            <li><a href="/user/faq">FAQ</a></li>
         <% } %>
     </ul>
 
