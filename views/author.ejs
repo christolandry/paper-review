@@ -33,8 +33,8 @@
 									<th>Submitted</th>
 									<th>Date Accepted</th>
 									<th>Duration</th>
-									<th>Review</th>
-									<th>Reviewer ID#</th>
+									<th>No.</th>
+									<th>Rev. ID</th>
 									<th>Doc #</th>
 								</tr>
 							</thead>
@@ -96,10 +96,10 @@
 									<th>Review</th>
 									<th>Submitted</th>
 									<th>Reviewed</th>
-									<th>Time of Review</th>
-									<th>Review Number</th>
-									<th>Reviewer ID#</th>
-									<th>Reviewer's Rating</th>
+									<th>Duration</th>
+									<th>No.</th>
+									<th>Rev. ID</th>
+									<th>Rev. Rating</th>
 									<th>Author Rates Review</th>
 								</tr>
 							</thead>
@@ -112,7 +112,7 @@
 											<% let reviewAccepted = new Date(papersReviewed[i].reviews[j].reviewAccepted) %>
 											<% let reviewCompleted = new Date(papersReviewed[i].reviews[j].reviewCompleted) %>
 											<tr>
-												<td><a href="<%= papersReviewed[i].document %>"><%= papersReviewed[i].title %></a></td>
+												<td><a href="<%= papersReviewed[i].document %>" target="_blank"><%= papersReviewed[i].title %></a></td>
 												<td class="centerElement"><a href="<%= papersReviewed[i].reviews[j].document %>" target="_blank">Review</a></td>
 												<td class="centerElement"><%= papersReviewed[i].createdAt.toLocaleDateString('en-us') %></td>
 												<td><%= reviewCompleted.toLocaleDateString('en-us') %></td>

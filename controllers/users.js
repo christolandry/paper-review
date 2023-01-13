@@ -83,16 +83,27 @@ module.exports = {
         })
       })
 
-      reviewLookupReviewed = [] //which reivew for each paper is the one done by this user
+
+      let completedReviews = []
+
       papersReviewed.forEach(paper => {
         paper.reviews.forEach((review, index) => {
           if(review.reviewerID == req.user.reviewerID){
-            reviewLookupReviewed.push(index)
+            let currentReview = {}
+            currentReview.title = paper.title
+            currentReview.reviewAccepted = new Date(review.reviewAccepted)
+            currentReview.reviewCompleted = new Date(review.reviewCompleted)
+            currentReview.duration = Math.floor((currentReview.reviewCompleted - currentReview.reviewAccepted) / (1000 * 60 * 60 * 24))
+            currentReview.document = review.document
+            completedReviews.push(currentReview)
           }
         })
       })
 
-      res.render("reviewer.ejs", { user: req.user, title: "- As Reviewer", papersUnderReview: papersUnderReview, reviewLookupUnderReview: reviewLookupUnderReview, reviewLookupReviewed: reviewLookupReviewed, papersReviewed: papersReviewed });
+      res.render("reviewer.ejs", { user: req.user, 
+                                   title: "- As Reviewer", 
+                                   papersUnderReview: papersUnderReview, 
+                                   completedReviews: completedReviews.sort((a,b) => b.reviewCompleted - a.reviewCompleted)});
     } catch (err) {
       console.log(err);
     }

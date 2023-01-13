@@ -44,15 +44,33 @@ module.exports = {
 
       paper.reviews.push(review)
       paper.status = "Under Review"
-      // await Paper.findOneAndUpdate(
-      //   { manuscriptNumber: req.params.manuscriptNumber },
-      //   {
-      //     reviews:  
-      //     status: "Under Review"        
-      //   }
-      // );
 
       await paper.save();
+
+      //email author that the paper is under review
+      
+      let author = await User.findOne({ _id: paper.author })
+      console.log("------------author------------------")
+      console.log(author)
+      
+
+      filteredUsers.forEach(user => {
+        let authorEmail = author.emailPreferred ? author.emailPreferred : author.email
+        client.sendMail(
+          {
+            from: "paperreviewapp@gmail.com",
+            to: authorEmail,
+            subject: `Paper Review - Your paper ${paper.title} is now under review`,
+            html: `
+              A review of your paper, ${paper.title}, is due in one week.
+              <br><a href='https://paper-review.vercel.app/user/reviewer'>See all your papers and reviews</a>."
+            `,
+          }
+        )
+        console.log(`Email sent to: ${author.email}`)
+      })
+
+
 
       res.redirect("/user/reviewer");
     } catch (err) {
@@ -62,16 +80,13 @@ module.exports = {
   createPaper: async (req, res) => {
     try {
       // Upload image to cloudinary
-      console.log("***************** Check 0 ****************")
       const result = await cloudinary.uploader.upload(req.file.path);
-      console.log("***************** Check 0.5 ****************")
       await PaperCounter.findOneAndUpdate(
               { title: "counter"},
               {
                 $inc: { current : 1 },
               }
             );
-      console.log("***************** Check 1 ****************")
       const counter = await PaperCounter.findOne({ title: "counter" });
       //media is stored on cloudainary - the above request responds with url to media and the media id that will be needed when deleting content 
       let disciplines = ['africanaStudies', 
@@ -106,14 +121,9 @@ module.exports = {
                       'sociology',
                       'theaterAndPerformance']
       let subDisciplines = []
-      console.log("***************** Check 2 ****************")
       for (const key in req.body){
         if(disciplines.includes(key)) subDisciplines.push(key)
       }     
-      console.log("***************** Check 3 ****************")
-      console.log("req.body.keywords")
-      console.log(req.body.keywords)
-      console.log("Formatted")
 
       await Paper.create({
         manuscriptNumber: counter.current,
@@ -129,15 +139,12 @@ module.exports = {
         reviewsRequested: req.body.reviews
       });
       console.log("Paper has been added!");
+      
+      
       //get all email address that have the subject of the paper being added and send out an email to them.
       
       let users = await User.find()
-      console.log("Users")
-      console.log(users)
       let filteredUsers = users.filter(i => i.subjects.includes(covertToCamelCase(req.body.discipline)) && (i.email !== req.user.email))
-      console.log("***************** Check 1 ****************")
-      console.log("Filtered Users")
-      console.log(filteredUsers)
 
       filteredUsers.forEach(user => {
         let userEmail = user.emailPreferred ? user.emailPreferred : user.email
@@ -197,7 +204,7 @@ module.exports = {
         {
           from: "paperreviewapp@gmail.com",
           to: userEmail,
-          subject: `Paper Review - All reivews ${paper.title} have been completed`,
+          subject: `Paper Review - A review for ${paper.title} has been completed`,
           html: `
             All the reviews you requested for your paper titled, "${paper.title}", have been completed.
             <br>Click this <a href='https://paper-review.vercel.app/user/author'>link</a> to view the papers you have uploaded.

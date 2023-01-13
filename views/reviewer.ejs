@@ -95,16 +95,14 @@
 								</tr>
 							</thead>
 							<tbody>
-								<% for(var i=0; i<papersReviewed.length; i++) {%>
-									<% let reviewedAccepted = new Date(papersReviewed[i].reviews[reviewLookupReviewed[i]].reviewAccepted) %>
-									<% let reviewedCompleted = new Date(papersReviewed[i].reviews[reviewLookupReviewed[i]].reviewCompleted) %>
+								<% for(var i=0; i<completedReviews.length; i++) { %>
 									<tr>
-										<td><%= papersReviewed[i].title %></td>
-										<td class="centerElement"><%= reviewedAccepted.toLocaleDateString('en-us') %></td>
-										<td class="centerElement"><%= reviewedCompleted.toLocaleDateString('en-us') %></td>
-										<td class="centerElement"><%= Math.floor((reviewedAccepted - reviewedCompleted) / (-1000 * 60 * 60 * 24)) %> day(s)</a></td>
-										<td class="centerElement"><a href="<%= papersReviewed[i].reviews[reviewLookupReviewed[i]].document %>" target="_blank">Review</a></td>
-										<td><%= papersReviewed[i].reviews[reviewLookupReviewed[i]].reviewRating %>To Do</td>
+										<td><%= completedReviews[i].title %></td>
+										<td class="centerElement"><%= completedReviews[i].reviewAccepted.toLocaleDateString('en-us') %></td>
+										<td class="centerElement"><%= completedReviews[i].reviewCompleted.toLocaleDateString('en-us') %></td>
+										<td class="centerElement"><%= completedReviews[i].duration %></td>
+										<td class="centerElement"><a href="<%= completedReviews[i].document %>" target="_blank">Review</a></td>
+										<td class="centerElement"><%= 'To Do' %></td>
 									</tr>
 								<% } %>
 							</tbody>
