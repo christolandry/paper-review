@@ -65,33 +65,13 @@
 											</tr>
 										</thead>
 										<tbody>
-											<% for(var i=0; i<papersSubmited.length; i++) {%>
-												<!-- If the paper has no reviewers yet -->
-												<% if(papersSubmited[i].status === "Awaiting Reviewer") { %>
-													<tr>
-														<td><a href="<%= papersSubmited[i].document %>" target="_blank"><%= papersSubmited[i].title %></a></td>
-														<td>Awaiting Reviewer</td>
-														<td></td>
-														<td></td>
-													</tr>
-												<% } else if(papersSubmited[i].status === "Under Review"){ %>
-													<% for(var j=0; j<papersSubmited[i].reviews.length; j++) { %>	
-														<tr>
-															<td><a href="<%= papersSubmited[i].document %>" target="_blank"><%= papersSubmited[i].title %></a></td>
-															<td><%= papersSubmited[i].reviews[j].document ? "Completed" : "Under Review" %></td>
-															<td class="centerElement"><%= papersSubmited[i].reviews[j].reviewerID %></td>
-															<td class="centerElement"><%= new Date(papersSubmited[i].reviews[j].reviewAccepted + 1000*60*60*24*7).toLocaleDateString('en-us') %></td>
-														</tr>
-													<% } %>
-													<% if(papersSubmited[i].reviews.length < papersSubmited[i].reviewsRequested) { %>
-														<tr>
-															<td><a href="<%= papersSubmited[i].document %>" target="_blank"><%= papersSubmited[i].title %></a></td>
-															<td>Awaiting Reviewer</td>
-															<td></td>
-															<td></td>
-														</tr>
-													<% } %>					
-												<% } %>			
+											<% for(var i=0; i<inProgress.length; i++) {%>
+												<tr>
+													<td><a href="<%= inProgress[i].document %>" target="_blank"><%= inProgress[i].title %></a></td>
+													<td class="centerElement"><%= inProgress[i].status %></td>
+													<td class="centerElement"><%= inProgress[i].reviewerID %></td>
+													<td class="centerElement"><%= inProgress[i].reviewAccepted ? new Date(inProgress[i].reviewAccepted + 1000*60*60*24*7).toLocaleDateString('en-us') : "" %></td>
+												</tr>
 											<% } %>
 										</tbody>
 										

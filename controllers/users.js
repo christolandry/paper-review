@@ -33,6 +33,7 @@ module.exports = {
       console.log(reviewCompleteTime)
       //Sending post data from mongodb and user data to ejs template
       res.render("user.ejs", { papersSubmited: papersSubmited.reverse(), 
+                               inProgress: getInProgress(papersSubmited), 
                                papersUnderReview: papersUnderReview.reverse(), 
                                submitted: submitted, 
                                numberOfReviews: numberOfReviews, 
@@ -60,10 +61,13 @@ module.exports = {
         return false
       })
       const reviews = papersReviewed.length
-      const papersInProgress = papers.filter(i => i.status !== "Review Complete")
 
       //Sending post data from mongodb and user data to ejs template
-      res.render("author.ejs", { papersInProgress: papersInProgress.reverse(), papersReviewed: papersReviewed.reverse(), user: req.user, submitted: submitted, title: "- As Author" });
+      res.render("author.ejs", { papersReviewed: papersReviewed.reverse(), 
+                                 inProgress: getInProgress(papers), 
+                                 user: req.user, 
+                                 submitted: submitted, 
+                                 title: "- As Author" });
     } catch (err) {
       console.log(err);
     }
@@ -169,3 +173,44 @@ module.exports = {
     }
   },
 };
+
+function getInProgress(papers){
+  const papersInProgress = papers.filter(i => i.status !== "Review Complete")
+  let inProgress = []
+  papersInProgress.forEach(paper => {
+    paper.reviews.forEach((review, index) =>{
+      let current = {}
+      current.title = paper.title
+      current.document = paper.document
+      current.status = "Under Review"
+      current.submitted = new Date(paper.createdAt)
+      current.reviewAccepted = new Date(review.reviewAccepted)
+      current.duration = Math.floor((new Date() - current.reviewAccepted) / (1000 * 60 * 60 * 24))
+      current.number = `${index + 1} / ${paper.reviewsRequested}`
+      current.reviewerID = review.reviewerID
+      current.manuscriptNumber = paper.manuscriptNumber
+      inProgress.push(current)
+    })
+    //if there are reviews requested outstanding that haven't been picked up yet
+    if(paper.reviewsRequested - paper.reviews.length){
+      let current = {}
+      current.title = paper.title
+      current.document = paper.document
+      current.status = "Awaiting Reviewer"
+      current.submitted = new Date(paper.createdAt)
+      current.number = `${paper.reviews.length + 1} / ${paper.reviewsRequested}`
+      current.manuscriptNumber = paper.manuscriptNumber
+      inProgress.push(current)
+    }
+  })
+
+  inProgress.sort((a,b) => {
+    if(a.status < b.status) return 1;
+    if(a.status > b.status) return -1;
+    if(a.reviewAccepted > b.reviewAccepted) return 1
+    if(a.reviewAccepted < b.reviewAccepted) return -1
+    return 0;
+   })
+
+   return inProgress
+}
