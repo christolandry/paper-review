@@ -23,29 +23,29 @@
 											<a href="/papers/submit" class="button primary ">Submit A Paper</a>
 										</div>
 										<div class="col-6 ">
-											<a href="/user/author" class="button ">Author Page</a>
+											<a href="/user/author" class="button "><u>Author Home</u></a>
 										</div>
 									</div>
 								</header>
 								
 								</br>
 							<!-- Author Stats -->
-								<h3>Lifetime Author Stats</h3>
+								<h3>Lifetime</h3>
 								<div class="table-wrapper">
 									<table class="vertical-border centerElement">
 										<tbody>
 											<tr>
-												<td class="BG-tan">Reviews Received</td>
+												<td>Reviews Received</td>
 												<td><%= numberOfReviews %></td>
-												<td class="BG-tan">Avg Time of Review</td>
+												<td>Avg Days/Review</td>
 												<% let avg = reviewTime ? new Date(reviewTime) : 0 %>
-												<td><%= avg ? `${avg.getDay()} day(s)` : "-"%> </td>
+												<td><%= avg ? avg.getDay() : "-"%> </td>
 											</tr>
 											<tr>
-												<td class="BG-tan">Papers Submitted</td>
+												<td>Papers Submitted</td>
 												<td><%= submitted %></td>
-												<td class="BG-yellow">Months Saved</td>
-												<td><%= numberOfReviews * 3 %> month(s)</td>
+												<td>Months Saved</td>
+												<td><%= numberOfReviews * 2 %></td>
 											</tr>
 										</tbody>
 									</table>
@@ -53,15 +53,15 @@
 								
 
 							<!-- Table of Author Documents -->
-								<h3>In Progress Dashboard</h3>
+								<h3>In Progress</h3>
 								<div class="table-wrapper">
 									<table class="vertical-border">
 										<thead>
 											<tr>
 												<th>Paper</th>
 												<th>Status</th>
-												<th>Reviewer ID</th>
-												<th>Review Due</th>
+												<th>ID</th>
+												<th>Due</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -77,7 +77,7 @@
 												<% } else if(papersSubmited[i].status === "Under Review"){ %>
 													<% for(var j=0; j<papersSubmited[i].reviews.length; j++) { %>	
 														<tr>
-															<td><a href="<%= papersSubmited[i].document %>"><%= papersSubmited[i].title %></a></td>
+															<td><a href="<%= papersSubmited[i].document %>" target="_blank"><%= papersSubmited[i].title %></a></td>
 															<td><%= papersSubmited[i].reviews[j].document ? "Completed" : "Under Review" %></td>
 															<td class="centerElement"><%= papersSubmited[i].reviews[j].reviewerID %></td>
 															<td class="centerElement"><%= new Date(papersSubmited[i].reviews[j].reviewAccepted + 1000*60*60*24*7).toLocaleDateString('en-us') %></td>
@@ -85,7 +85,7 @@
 													<% } %>
 													<% if(papersSubmited[i].reviews.length < papersSubmited[i].reviewsRequested) { %>
 														<tr>
-															<td><a href="<%= papersSubmited[i].document %>"><%= papersSubmited[i].title %></a></td>
+															<td><a href="<%= papersSubmited[i].document %>" target="_blank"><%= papersSubmited[i].title %></a></td>
 															<td>Awaiting Reviewer</td>
 															<td></td>
 															<td></td>
@@ -109,28 +109,28 @@
 											<a href="/papers" class="button primary ">Review A Paper</a>
 										</div>
 										<div class="col-6 ">
-											<a href="/user/reviewer" class="button ">Reviewer Page</a>
+											<a href="/user/reviewer" class="button "><u>Reviewer Home</u></a>
 										</div>
 									</div>
 								</header>								
 								</br>
 
 							<!-- Reviewer Stats -->
-								<h3>Lifetime Reviewer Stats</h3>
+								<h3>Lifetime</h3>
 								<div class="table-wrapper">
 									<table class="vertical-border centerElement">
 										<tbody>
 											<tr>
-												<td class="BG-tan">Reviews Completed</td>
+												<td>Reviews Completed</td>
 												<td><%= reviewsCompleted %></td>
-												<td class="BG-tan">Avg Time of Review</td>
+												<td>Avg Time of Review</td>
 												<% let avgCompleted = reviewCompleteTime ? new Date(reviewCompleteTime) : 0 %>
 												<td><%= avgCompleted ? `${avgCompleted.getDay()} day(s)` : "-" %></td>
 											</tr>
 											<tr>
-												<td class="BG-tan">Rating</td>
+												<td>Rating</td>
 												<td>4.7 / 5</td>
-												<td class="BG-yellow">Lifetime Earnings</td>
+												<td>Lifetime Earnings</td>
 												<td>$To Do</td>
 											</tr>
 											<tr>
@@ -138,13 +138,13 @@
 									</table>
 								</div>
 							<!-- Table of Auther Documents -->	
-								<h3>In Progress Dashboard</h3>
+								<h3>In Progress</h3>
 								<div class="table-wrapper">
 									<table class="vertical-border">
 										<thead>
 											<tr>
 												<th>Paper</th>
-												<th>Review Due</th>
+												<th>Due</th>
 												<th>Template</th>
 												<th>Submit Review</th>
 											</tr>
