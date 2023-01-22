@@ -53,22 +53,20 @@ module.exports = {
       console.log("------------author------------------")
       console.log(author)
       
-
-      filteredUsers.forEach(user => {
-        let authorEmail = author.emailPreferred ? author.emailPreferred : author.email
-        client.sendMail(
-          {
-            from: "paperreviewapp@gmail.com",
-            to: authorEmail,
-            subject: `Paper Review - Your paper ${paper.title} is now under review`,
-            html: `
-              A review of your paper, ${paper.title}, is due in one week.
-              <br><a href='https://paper-review.vercel.app/user/reviewer'>See all your papers and reviews</a>."
-            `,
-          }
-        )
-        console.log(`Email sent to: ${author.email}`)
-      })
+      let authorEmail = author.emailPreferred ? author.emailPreferred : author.email
+      client.sendMail(
+        {
+          from: "paperreviewapp@gmail.com",
+          to: authorEmail,
+          subject: `Paper Review - Your paper ${paper.title} is now under review`,
+          html: `
+            A review of your paper, ${paper.title}, is due in one week.
+            <br><a href='https://paper-review.vercel.app/user/reviewer'>See all your papers and reviews</a>."
+          `,
+        }
+      )
+      console.log(`Email sent to: ${authorEmail}`)
+      
 
 
 
