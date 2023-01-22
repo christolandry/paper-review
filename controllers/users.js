@@ -30,7 +30,6 @@ module.exports = {
           }
       }
 
-      console.log(reviewCompleteTime)
       //Sending post data from mongodb and user data to ejs template
       res.render("user.ejs", { papersSubmited: papersSubmited.reverse(), 
                                inProgress: getInProgress(papersSubmited), 
@@ -179,17 +178,19 @@ function getInProgress(papers){
   let inProgress = []
   papersInProgress.forEach(paper => {
     paper.reviews.forEach((review, index) =>{
-      let current = {}
-      current.title = paper.title
-      current.document = paper.document
-      current.status = "Under Review"
-      current.submitted = new Date(paper.createdAt)
-      current.reviewAccepted = new Date(review.reviewAccepted)
-      current.duration = Math.floor((new Date() - current.reviewAccepted) / (1000 * 60 * 60 * 24))
-      current.number = `${index + 1} / ${paper.reviewsRequested}`
-      current.reviewerID = review.reviewerID
-      current.manuscriptNumber = paper.manuscriptNumber
-      inProgress.push(current)
+      if(!review.document){
+        let current = {}
+        current.title = paper.title
+        current.document = paper.document
+        current.status = "Under Review"
+        current.submitted = new Date(paper.createdAt)
+        current.reviewAccepted = new Date(review.reviewAccepted)
+        current.duration = Math.floor((new Date() - current.reviewAccepted) / (1000 * 60 * 60 * 24))
+        current.number = `${index + 1} / ${paper.reviewsRequested}`
+        current.reviewerID = review.reviewerID
+        current.manuscriptNumber = paper.manuscriptNumber
+        inProgress.push(current)
+      }
     })
     //if there are reviews requested outstanding that haven't been picked up yet
     if(paper.reviewsRequested - paper.reviews.length){
