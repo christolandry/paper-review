@@ -60,7 +60,7 @@
 											<tr>
 												<th>Paper</th>
 												<th>Status</th>
-												<th>ID</th>
+												<th>Rev ID</th>
 												<th>Due</th>
 											</tr>
 										</thead>
@@ -103,7 +103,7 @@
 											<tr>
 												<td>Reviews Completed</td>
 												<td><%= reviewsCompleted %></td>
-												<td>Avg Time of Review</td>
+												<td>Avg Days/Review</td>
 												<% let avgCompleted = reviewCompleteTime ? new Date(reviewCompleteTime) : 0 %>
 												<td><%= avgCompleted ? `${avgCompleted.getDay()} day(s)` : "-" %></td>
 											</tr>
