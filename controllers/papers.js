@@ -204,7 +204,7 @@ module.exports = {
           to: userEmail,
           subject: `Paper Review - A review for ${paper.title} has been completed`,
           html: `
-            A review you requested for your paper titled, "${paper.title}", have been completed.
+            A review you requested for your paper titled, "${paper.title}", has been completed.
             <br>Click this <a href='https://paper-review.vercel.app/user/author'>link</a> to view the papers you have uploaded.
           `,
         }
