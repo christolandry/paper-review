@@ -187,6 +187,7 @@ module.exports = {
 function getInProgress(papers){
   const papersInProgress = papers.filter(i => i.status !== "Review Complete")
   let inProgress = []
+  console.log(papersInProgress)
   papersInProgress.forEach(paper => {
     paper.reviews.forEach((review, index) =>{
       if(!review.document){

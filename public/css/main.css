@@ -4682,3 +4682,8 @@ table.vertical-border td{
 	width: 3em;
 	box-sizing: inherit;
 }
+
+#banner a{
+	z-index: 10000;
+	position: relative;
+}
