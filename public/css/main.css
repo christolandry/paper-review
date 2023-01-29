@@ -4661,3 +4661,24 @@ table.vertical-border td{
 .skinny{
 	max-width: 400px;
 }
+
+#banner>.whiteBoxFlex>.whiteBox>.whiteBoxInner > li{
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+#banner>.whiteBoxFlex>.col-lg-6>.inner>h2.major::after{
+	display: none;
+}
+
+.bottomLine::after{
+	background-color: #ffffff;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	content: "";
+	height: 1px;
+	margin-top: 1em;
+	width: 3em;
+	box-sizing: inherit;
+}
