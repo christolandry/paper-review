@@ -38,8 +38,7 @@
 												<td>Reviews Received</td>
 												<td><%= numberOfReviews %></td>
 												<td>Avg Days/Review</td>
-												<% let avg = reviewTime ? new Date(reviewTime) : 0 %>
-												<td><%= avg ? avg.getDay() : "-"%> </td>
+												<td><%= reviewTime ? Math.round(reviewTime) : 0 %> </td>
 											</tr>
 											<tr>
 												<td>Papers Submitted</td>
@@ -104,8 +103,7 @@
 												<td>Reviews Completed</td>
 												<td><%= reviewsCompleted %></td>
 												<td>Avg Days/Review</td>
-												<% let avgCompleted = reviewCompleteTime ? new Date(reviewCompleteTime) : 0 %>
-												<td><%= avgCompleted ? `${avgCompleted.getDay()} day(s)` : "-" %></td>
+												<td><%= reviewCompleteTime ? Math.round(reviewCompleteTime) : 0 %></td>
 											</tr>
 											<tr>
 												<td>Rating</td>
